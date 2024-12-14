@@ -68,8 +68,10 @@ int desenfileirarSu(Fila *fila) {
 void imprimirFilaSu(Fila *fila){
     if (fila == NULL) return;
     NO *aux = fila->inicio;
+    int number = 1;
     while (aux != NULL){
-        imprimeSudoku(fila->inicio->sudoku);
+        printf("%d\n", number); number++;
+        imprimeSudoku(aux->sudoku);
         aux = aux->prox;
     }
     printf("\n");

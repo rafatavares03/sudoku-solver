@@ -23,13 +23,15 @@ int **converteSudoku(char **original){
 Fila *leitura(char *path) {
     Fila *sudokus = criaFila();
     FILE *arquivo = fopen(path, "r");
+    int con =1;
 
     if (arquivo != NULL) {
         char *linha = (char*) malloc(22 * sizeof(char));
         while( ! feof(arquivo) ){
             
 
-            char **sudoku = alocaSudoku();
+            char **sudoku = NULL;
+            sudoku = alocaSudoku();
 
             for (int i = 0; i < 9; i++) {
                 if (fgets(linha, 22, arquivo)) {
@@ -37,6 +39,7 @@ Fila *leitura(char *path) {
                     if(strlen(linha) < 5){ //quebra de linha do subgrid
                         fgets(linha, 22, arquivo);
                         if(strlen(linha) < 5){  // 2 espaços(novo sudoku)
+                            fgets(linha, 22, arquivo);
                             break;
                         }
                     } 
@@ -54,6 +57,8 @@ Fila *leitura(char *path) {
             }
 
             enfileirarSu(sudokus, converteSudoku(sudoku));
+            printf("%d \n", con);
+            con++;
         }
 
         fclose(arquivo);
