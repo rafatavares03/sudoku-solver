@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "./saida.h"
 #include "./sudoku.h"
+#include "./estrutura-de-dados/filaSu.h"
 
 int backtracking(int **sudoku) {
     for (int linha = 0; linha < 9; linha++) {
@@ -28,7 +29,14 @@ int backtracking(int **sudoku) {
 }
 
 
-void resolveSudokuForcaBruta(int **sudoku){
-    backtracking(sudoku);
-    imprimeSudoku(sudoku);
+void resolveSudokuForcaBruta(Fila *sudokus){
+    NO *susu = sudokus->inicio;
+    printf("Forca Bruta: \n");
+    int nu = 1;
+    while(susu != NULL){
+        backtracking(susu->sudoku);
+        printf("_________________ %d _________________\n", nu); nu++;
+        imprimeSudoku(susu->sudoku);
+        susu = susu->prox;
+    }
 }

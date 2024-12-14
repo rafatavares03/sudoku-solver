@@ -5,15 +5,13 @@
 #include "./heuristica.h"
 #include "./leitura.h"
 #include "./saida.h"
-#include "./cronometro.h"
+#include "./cronometro.h"  //no linux é show
 #include "./estrutura-de-dados/lista.h"
 #include "./estrutura-de-dados/filaSu.h"
 
 int main(){
     Fila* sudokus = leitura("./su-do-ku.txt");
     imprimirFilaSu(sudokus);
-
-
     //struct timeval inicio = iniciaCronometro();
     //finalizaCronometro(inicio," ", 0);
     
@@ -21,7 +19,7 @@ int main(){
 
     printf("------\n");
 
-    //resolveSudokuForcaBruta(sudokus);
+    resolveSudokuForcaBruta(sudokus);
 
     destroiFilaSu(sudokus);
     return 0;
