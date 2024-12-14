@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include "./heuristica.h"
 #include "./cronometro.h"
+#include "./sudoku.h"
 #include "./estrutura-de-dados/lista.h"
+#include "./estrutura-de-dados/filaSu.h"
 
 
 
@@ -151,10 +153,22 @@ int backtrackingHeuristica(Posicao **sudoku) {
     return 0; //todos os valores foram testados para uma posição e nenhum conseguiu resolver o sudoku
 }
 
-void resolveSudokuHeuristica(int **sudokuInicial) {
-    struct timeval inicio = iniciaCronometro();
 
+int **structPraMatriz(Sudoku *sudoku){
+    int **sudokuDefinitivo = alocaSudokuInt();
+    if(sudoku == NULL) return NULL;
+    for(int i = 0; i < 9; i++) {
+        for(int j = 0; j < 9; j++) {
+            sudokuDefinitivo[i][j] = sudoku->matriz[i][j].valor;
+        }
+    }
+    return sudokuDefinitivo;
+}
+
+int** intermediarioBack(int **sudokuInicial){
     Sudoku *sudoku = criaSudoku();
+    int **sudokuDefinitivo = alocaSudokuInt();
+
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
             if(sudokuInicial[i][j] != 0) {
@@ -165,10 +179,28 @@ void resolveSudokuHeuristica(int **sudokuInicial) {
         }
     }
     backtrackingHeuristica(sudoku->matriz);
-    imprimeSudokuStruct(sudoku);
+    sudokuDefinitivo = structPraMatriz(sudoku);
     destroiSudokuStruct(sudoku);
+
+    return sudokuDefinitivo;
+
+}
+
+Fila* resolveSudokuHeuristica(Fila *sudokus) {
+    struct timeval inicio = iniciaCronometro();
+    Fila *sudSolucao = criaFila();
+
+    NO *resolvendo = sudokus->inicio;
+    while(resolvendo != NULL){
+        int **sudInter = intermediarioBack(resolvendo->sudoku);
+        enfileirarSu(sudSolucao, sudInter);
+        resolvendo = resolvendo->prox;
+    }
+
 
     double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
     tempoDecorrido = aux;
+    
+    return sudSolucao;
 
 }

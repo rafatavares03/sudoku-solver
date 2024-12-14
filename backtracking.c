@@ -8,7 +8,7 @@
 
 
 
-int backtracking(int **sudoku) {
+int** backtracking(int **sudoku) {
     for (int linha = 0; linha < 9; linha++) {
         for (int coluna = 0; coluna < 9; coluna++) {
             if (sudoku[linha][coluna] == 0) {
@@ -19,28 +19,32 @@ int backtracking(int **sudoku) {
                     if (posicaoSegura(sudoku, list[k], linha, coluna)) {
                         sudoku[linha][coluna] = list[k];
                         if (backtracking(sudoku)) {
-                            return 1;
+                            return sudoku;
                         }
                         sudoku[linha][coluna] = 0; 
                     }
                 }
                 free(list);
-                return 0; 
+                return NULL; 
             }
         }
     }
-    return 1;
+    return sudoku;
 }
 
 
-void resolveSudokuForcaBruta(Fila *sudokus, char *arquivoEscrita){
+Fila* resolveSudokuForcaBruta(Fila *sudokus){
     struct timeval inicio = iniciaCronometro();
+    Fila* sudokusResolvidos = criaFila();
 
     NO *susu = sudokus->inicio;
     printf("Forca Bruta: \n");
     int nu = 1;
     while(susu != NULL){
-        backtracking(susu->sudoku);
+        int **sudokuBack = alocaSudokuInt();
+        sudokuBack = backtracking(susu->sudoku);
+        enfileirarSu(sudokusResolvidos, sudokuBack);       
+
         //printf("_________________ %d _________________\n", nu); nu++;
         //imprimeSudoku(susu->sudoku);
         susu = susu->prox;
@@ -48,6 +52,7 @@ void resolveSudokuForcaBruta(Fila *sudokus, char *arquivoEscrita){
 
     double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
     tempoDecorrido = aux;
-
+    
+    return sudokusResolvidos;
     
 }
