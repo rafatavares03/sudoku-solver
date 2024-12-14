@@ -5,6 +5,7 @@
 #include "./sudoku.h"
 #include "./estrutura-de-dados/lista.h"
 #include "./estrutura-de-dados/filaSu.h"
+#include "saida.h"
 
 
 
@@ -156,6 +157,7 @@ int backtrackingHeuristica(Posicao **sudoku) {
 
 int **structPraMatriz(Sudoku *sudoku){
     int **sudokuDefinitivo = alocaSudokuInt();
+    
     if(sudoku == NULL) return NULL;
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
@@ -167,7 +169,8 @@ int **structPraMatriz(Sudoku *sudoku){
 
 int** intermediarioBack(int **sudokuInicial){
     Sudoku *sudoku = criaSudoku();
-    int **sudokuDefinitivo = alocaSudokuInt();
+
+    int **sudokuDefinitivo; //aloca na conversao
 
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
@@ -178,21 +181,24 @@ int** intermediarioBack(int **sudokuInicial){
             }
         }
     }
+    
     backtrackingHeuristica(sudoku->matriz);
     sudokuDefinitivo = structPraMatriz(sudoku);
+
     destroiSudokuStruct(sudoku);
 
     return sudokuDefinitivo;
-
 }
 
 Fila* resolveSudokuHeuristica(Fila *sudokus) {
     struct timeval inicio = iniciaCronometro();
     Fila *sudSolucao = criaFila();
+    int **sudInter;
 
-    NO *resolvendo = sudokus->inicio;
+    NO_Fila *resolvendo = sudokus->inicio;
     while(resolvendo != NULL){
-        int **sudInter = intermediarioBack(resolvendo->sudoku);
+        sudInter = intermediarioBack(resolvendo->sudoku);
+        printf("\n\n");
         enfileirarSu(sudSolucao, sudInter);
         resolvendo = resolvendo->prox;
     }

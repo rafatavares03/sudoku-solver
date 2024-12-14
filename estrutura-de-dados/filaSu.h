@@ -11,6 +11,8 @@ typedef struct {
     NO *final;
 } Fila;
 
+typedef NO NO_Fila;  
+
 
 Fila *criaFila();
 void destroiFilaSu(Fila *fila);

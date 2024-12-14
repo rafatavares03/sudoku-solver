@@ -19,7 +19,7 @@ int main(int arg, char *argv[]){
     initArquivo(argv[2]);
     
     Fila *sudHeu = criaFila();
-    sudHeu = resolveSudokuHeuristica(sudokus);
+        sudHeu = resolveSudokuHeuristica(sudokus);
     escreveArquivo(sudokus, argv[2], "heuristica"); 
 
     printf("------\n");
