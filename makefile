@@ -1,7 +1,7 @@
 estrutura-de-dados = ./estrutura-de-dados/fila.o ./estrutura-de-dados/lista.o ./estrutura-de-dados/filaSu.o
 
 run: 
-	./sudoku su-do-ku.txt
+	./sudoku su-do-ku.txt ku-do-su.txt
 
 build: ./main.o leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados)
 	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados) -o ./sudoku

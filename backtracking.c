@@ -4,6 +4,7 @@
 #include "./saida.h"
 #include "./sudoku.h"
 #include "./estrutura-de-dados/filaSu.h"
+#include "saida.h"
 
 extern double tempoDecorrido;
 
@@ -47,5 +48,7 @@ void resolveSudokuForcaBruta(Fila *sudokus, char *arquivoEscrita){
 
     double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
     tempoDecorrido = aux;
+
+    escreveArquivo(sudokus, arquivoEscrita);
     
 }
