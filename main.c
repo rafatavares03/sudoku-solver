@@ -7,20 +7,22 @@
 #include "./saida.h"
 #include "./cronometro.h"
 #include "./estrutura-de-dados/lista.h"
+#include "filaSu.h"
 
 int main(){
-    int **sudoku = leitura("./su-do-ku.txt");
-    imprimeSudoku(sudoku);
+    Fila* sudokus = leitura("./su-do-ku.txt");
+    imprimirFilaSu(sudokus);
+
 
     //struct timeval inicio = iniciaCronometro();
     //finalizaCronometro(inicio," ", 0);
     
-    resolveSudokuHeuristica(sudoku);
+    //resolveSudokuHeuristica(sudokus);
 
     printf("------\n");
 
-    resolveSudokuForcaBruta(sudoku);
-    
-    destroiSudokuInt(sudoku);
+    //resolveSudokuForcaBruta(sudokus);
+
+    destroiFilaSu(sudokus);
     return 0;
 }

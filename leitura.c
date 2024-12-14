@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "./sudoku.h"
+#include "filaSu.h"
 
 int **converteSudoku(char **original){
    int **copia = alocaSudokuInt();
@@ -19,27 +20,43 @@ int **converteSudoku(char **original){
     return copia;
 }
 
-int **leitura(char *path) {
-    char **sudoku = alocaSudoku();
+Fila *leitura(char *path) {
+    Fila *sudokus = criaFila();
     FILE *arquivo = fopen(path, "r");
+
     if (arquivo != NULL) {
-        char *linha = (char*) malloc(20 * sizeof(char));
-        for (int i = 0; i < 9; i++) {
-            if (fgets(linha, 20, arquivo)) {
-                sudoku[i][0] = linha[0];
-                sudoku[i][1] = linha[2];
-                sudoku[i][2] = linha[4];
-                sudoku[i][3] = linha[6];
-                sudoku[i][4] = linha[8];
-                sudoku[i][5] = linha[10];
-                sudoku[i][6] = linha[12];
-                sudoku[i][7] = linha[14];
-                sudoku[i][8] = linha[16];
+        char *linha = (char*) malloc(22 * sizeof(char));
+        while( ! EOF){
+
+            char **sudoku = alocaSudoku();
+
+            for (int i = 0; i < 9; i++) {
+                if (fgets(linha, 22, arquivo)) {
+
+                    if(strlen(linha) < 5){ //quebra de linha do subgrid
+                        fgets(linha, 22, arquivo);
+                        if(strlen(linha) < 5){  // 2 espaços(novo sudoku)
+                            break;
+                        }
+                    } 
+
+                    sudoku[i][0] = linha[0];
+                    sudoku[i][1] = linha[2];
+                    sudoku[i][2] = linha[4];
+                    sudoku[i][3] = linha[7];
+                    sudoku[i][4] = linha[9];
+                    sudoku[i][5] = linha[11];
+                    sudoku[i][6] = linha[14];
+                    sudoku[i][7] = linha[16];
+                    sudoku[i][8] = linha[18];
+                }
             }
+
+            enfileirar(sudokus, converteSudoku(sudoku));
         }
-        free(linha);
         fclose(arquivo);
-        return converteSudoku(sudoku);
+        free(linha);
+
     } else {
         printf("Erro ao abrir o arquivo!\n");
     }

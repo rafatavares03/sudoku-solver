@@ -1,6 +1,7 @@
 #ifndef LEITURA_H
 #define LEITURA_H
+#include "filaSu.h"
 
 int **converteSudoku(char **original);
-int **leitura(char *path);
+Fila *leitura(char *path);
 #endif
