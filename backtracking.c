@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "./cronometro.h"
 #include "./saida.h"
 #include "./sudoku.h"
 #include "./estrutura-de-dados/filaSu.h"
+
+extern double tempoDecorrido;
 
 int backtracking(int **sudoku) {
     for (int linha = 0; linha < 9; linha++) {
@@ -29,7 +32,9 @@ int backtracking(int **sudoku) {
 }
 
 
-void resolveSudokuForcaBruta(Fila *sudokus){
+void resolveSudokuForcaBruta(Fila *sudokus, char *processo){
+    struct timeval inicio = iniciaCronometro();
+
     NO *susu = sudokus->inicio;
     printf("Forca Bruta: \n");
     int nu = 1;
@@ -39,4 +44,8 @@ void resolveSudokuForcaBruta(Fila *sudokus){
         imprimeSudoku(susu->sudoku);
         susu = susu->prox;
     }
+
+    double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
+    tempoDecorrido = aux;
+    
 }

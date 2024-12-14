@@ -9,17 +9,17 @@
 #include "./estrutura-de-dados/lista.h"
 #include "./estrutura-de-dados/filaSu.h"
 
-int main(){
+double tempoDecorrido = 0.0;
+
+int main(int arg, char *argv[]){
     Fila* sudokus = leitura("./su-do-ku.txt");
-    imprimirFilaSu(sudokus);
-    //struct timeval inicio = iniciaCronometro();
-    //finalizaCronometro(inicio," ", 0);
+    //imprimirFilaSu(sudokus);
     
     //resolveSudokuHeuristica(sudokus);
 
     printf("------\n");
 
-    resolveSudokuForcaBruta(sudokus);
+    resolveSudokuForcaBruta(sudokus, argv[1]);
 
     destroiFilaSu(sudokus);
     return 0;

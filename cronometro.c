@@ -3,6 +3,8 @@
 #include <sys/resource.h>
 #include <sys/time.h>
 
+
+
 struct timeval iniciaCronometro(){
     struct timeval inicio;
     gettimeofday(&inicio, NULL);
