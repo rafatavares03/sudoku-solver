@@ -12,14 +12,14 @@
 double tempoDecorrido = 0.0;
 
 int main(int arg, char *argv[]){
-    Fila* sudokus = leitura("./su-do-ku.txt");
+    Fila* sudokus = leitura(argv[1]);
     //imprimirFilaSu(sudokus);
     
     //resolveSudokuHeuristica(sudokus);
 
     printf("------\n");
 
-    resolveSudokuForcaBruta(sudokus, argv[1]);
+    resolveSudokuForcaBruta(sudokus, argv[2]);
 
     destroiFilaSu(sudokus);
     return 0;

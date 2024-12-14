@@ -3,5 +3,5 @@
 
 #include "./estrutura-de-dados/filaSu.h"
 
-void resolveSudokuForcaBruta(Fila *sudoku, char *processo);
+void resolveSudokuForcaBruta(Fila *sudoku, char *arquivoEscrita);
 #endif

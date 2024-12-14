@@ -4,6 +4,9 @@
 #include "./sudoku.h"
 #include "./estrutura-de-dados/filaSu.h"
 #include "saida.h"
+#include "cronometro.h"
+
+extern double tempoDecorrido;
 
 int **converteSudoku(char **original){
    int **copia = alocaSudokuInt();
@@ -22,6 +25,10 @@ int **converteSudoku(char **original){
 }
 
 Fila *leitura(char *path) {
+    printf("---------------\n");
+
+    struct timeval inicio = iniciaCronometro();
+    
     Fila *sudokus = criaFila();
     FILE *arquivo = fopen(path, "r");
     int con =1;
@@ -56,9 +63,13 @@ Fila *leitura(char *path) {
 
         fclose(arquivo);
         free(linha);
-        return sudokus;
 
     } else {
         printf("Erro ao abrir o arquivo!\n");
     }
+
+    
+    double aux = finalizaCronometro(inicio, "Leitura", tempoDecorrido);
+    tempoDecorrido = aux;
+    return sudokus;
 }

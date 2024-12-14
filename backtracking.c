@@ -32,7 +32,7 @@ int backtracking(int **sudoku) {
 }
 
 
-void resolveSudokuForcaBruta(Fila *sudokus, char *processo){
+void resolveSudokuForcaBruta(Fila *sudokus, char *arquivoEscrita){
     struct timeval inicio = iniciaCronometro();
 
     NO *susu = sudokus->inicio;
@@ -40,8 +40,8 @@ void resolveSudokuForcaBruta(Fila *sudokus, char *processo){
     int nu = 1;
     while(susu != NULL){
         backtracking(susu->sudoku);
-        printf("_________________ %d _________________\n", nu); nu++;
-        imprimeSudoku(susu->sudoku);
+        //printf("_________________ %d _________________\n", nu); nu++;
+        //imprimeSudoku(susu->sudoku);
         susu = susu->prox;
     }
 
