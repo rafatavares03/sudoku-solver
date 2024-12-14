@@ -6,4 +6,5 @@ int** alocaSudokuInt();
 void destroiSudoku(char** sudoku);
 void destroiSudokuInt(int** sudoku);
 int **copiaSudoku(int **original);
+int posicaoSegura(int **sudoku, int num, int linha, int coluna);
 #endif

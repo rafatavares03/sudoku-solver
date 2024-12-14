@@ -32,6 +32,7 @@ int estaCheiaLista(Lista *l) {
 int insereElemento(Lista *l, int elemento) {
     if(l == NULL) return -1;
     if(estaCheiaLista(l)) return 0;
+    if(buscaElemento(l, elemento) != -1) return 1;
     l->dados[l->quantidade] = elemento;
     l->quantidade++;
     return 1;

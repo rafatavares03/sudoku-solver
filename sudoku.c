@@ -52,4 +52,26 @@ int **copiaSudoku(int **original){
     return copia;
 }
 
-// ------------------------ backtracking acima ---------------------------- //
+int posicaoSegura(int **sudoku, int num, int linha, int coluna) {
+    for (int i = 0; i < 9; i++) {
+        if (sudoku[linha][i] == num || sudoku[i][coluna] == num) {
+            return 0;
+        }
+    }
+
+    int blocoLinha = (linha / 3);
+    blocoLinha *= 3;
+    int blocoColuna = (coluna / 3);
+    blocoColuna *= 3;
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (sudoku[blocoLinha + i][blocoColuna + j] == num) {
+                return 0;
+            }
+        }
+
+    }
+
+    return 1;
+}
