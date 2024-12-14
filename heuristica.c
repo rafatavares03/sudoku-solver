@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./heuristica.h"
+#include "./cronometro.h"
 #include "./estrutura-de-dados/lista.h"
+
+
 
 void InicializaPosicao(Posicao *posicao){
     if(posicao != NULL) {
@@ -149,6 +152,8 @@ int backtrackingHeuristica(Posicao **sudoku) {
 }
 
 void resolveSudokuHeuristica(int **sudokuInicial) {
+    struct timeval inicio = iniciaCronometro();
+
     Sudoku *sudoku = criaSudoku();
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
@@ -162,4 +167,8 @@ void resolveSudokuHeuristica(int **sudokuInicial) {
     backtrackingHeuristica(sudoku->matriz);
     imprimeSudokuStruct(sudoku);
     destroiSudokuStruct(sudoku);
+
+    double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
+    tempoDecorrido = aux;
+
 }

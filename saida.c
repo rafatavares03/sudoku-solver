@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <string.h>
 #include "./estrutura-de-dados/filaSu.h"
+#include "./cronometro.h"
+
 
 void imprimeSudoku(int** sudoku){
         for(int i = 0; i < 9; i++){
@@ -44,17 +47,26 @@ void escreveSudoku(int **sudoku, char *path){
     fclose(arquivo);
 }
 
-void escreveArquivo(Fila *sudoku, char *path){
-    //ter certeza que ta em branco
+void initArquivo(char *path){
     FILE *arquivo = fopen(path, "w");
     fprintf(arquivo, "%s" ,"");
     fclose(arquivo);
+ }
 
-    NO *aux = sudoku->inicio;
-    while(aux != NULL){
-        escreveSudoku(aux->sudoku, path);
-        aux = aux->prox;
+void escreveArquivo(Fila *sudoku, char *path, char *operacion){
+    struct timeval inicio = iniciaCronometro();
+
+    NO *susu = sudoku->inicio;
+    while(susu != NULL){
+        escreveSudoku(susu->sudoku, path);
+        susu = susu->prox;
     }
+    
+    //tem que ter tamanho fixp pra n dar seg falha
+    char concatenado[51] = "escrita da ";
+    strcat(concatenado, operacion);
 
+    double aux = finalizaCronometro(inicio, concatenado, tempoDecorrido);
+    tempoDecorrido = aux;
 
 }

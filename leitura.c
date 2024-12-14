@@ -4,9 +4,9 @@
 #include "./sudoku.h"
 #include "./estrutura-de-dados/filaSu.h"
 #include "saida.h"
-#include "cronometro.h"
+#include "./cronometro.h"
 
-extern double tempoDecorrido;
+
 
 int **converteSudoku(char **original){
    int **copia = alocaSudokuInt();

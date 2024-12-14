@@ -6,7 +6,7 @@
 #include "./estrutura-de-dados/filaSu.h"
 #include "saida.h"
 
-extern double tempoDecorrido;
+
 
 int backtracking(int **sudoku) {
     for (int linha = 0; linha < 9; linha++) {
@@ -49,6 +49,5 @@ void resolveSudokuForcaBruta(Fila *sudokus, char *arquivoEscrita){
     double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
     tempoDecorrido = aux;
 
-    escreveArquivo(sudokus, arquivoEscrita);
     
 }

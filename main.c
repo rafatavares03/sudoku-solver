@@ -15,11 +15,17 @@ int main(int arg, char *argv[]){
     Fila* sudokus = leitura(argv[1]);
     //imprimirFilaSu(sudokus);
     
-    //resolveSudokuHeuristica(sudokus);
+    //cria ou zera o arquivo;
+    initArquivo(argv[2]);
+
+    resolveSudokuHeuristica(sudokus, argv[2]);
+    escreveArquivo(sudokus, argv[2], "heuristica");
 
     printf("------\n");
 
     resolveSudokuForcaBruta(sudokus, argv[2]);
+    escreveArquivo(sudokus, argv[2], "forca bruta");
+
 
     destroiFilaSu(sudokus);
     return 0;
