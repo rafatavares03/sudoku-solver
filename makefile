@@ -1,10 +1,10 @@
-estrutura-de-dados = ./estrutura-de-dados/fila.o ./estrutura-de-dados/lista.o
+estrutura-de-dados = ./estrutura-de-dados/fila.o ./estrutura-de-dados/lista.o ./estrutura-de-dados/filaSu.o
 
 run: 
 	./sudoku
 
-build: ./main.o leitura.o saida.o sudoku.o heuristica.o cronometro.o filaSu.o backtracking.o $(estrutura-de-dados)
-	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o filaSu.o backtracking.o $(estrutura-de-dados) -o ./sudoku
+build: ./main.o leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados)
+	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados) -o ./sudoku
 
 main.o: ./main.c ./leitura.h  ./heuristica.h ./sudoku.h ./saida.h
 	gcc -c main.c -o main.o
@@ -12,8 +12,8 @@ main.o: ./main.c ./leitura.h  ./heuristica.h ./sudoku.h ./saida.h
 leitura.o: ./leitura.c ./leitura.h
 	gcc -c leitura.c -o leitura.o
 
-filaSu.o: ./filaSu.c filaSu.h
-	gcc -c filaSu.c -o filaSu.o
+filaSu.o: ./estrutura-de-dados/filaSu.c ./estrutura-de-dados/filaSu.h
+	gcc -c ./estrutura-de-dados/filaSu.c -o ./estrutura-de-dados/filaSu.o
 
 saida.o: ./saida.c ./saida.h
 	gcc -c saida.c -o saida.o

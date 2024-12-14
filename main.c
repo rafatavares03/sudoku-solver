@@ -7,7 +7,7 @@
 #include "./saida.h"
 #include "./cronometro.h"
 #include "./estrutura-de-dados/lista.h"
-#include "filaSu.h"
+#include "./estrutura-de-dados/filaSu.h"
 
 int main(){
     Fila* sudokus = leitura("./su-do-ku.txt");

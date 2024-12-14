@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "./sudoku.h"
-#include "filaSu.h"
+#include "./estrutura-de-dados/filaSu.h"
 #include "saida.h"
 
 int **converteSudoku(char **original){
@@ -29,18 +29,13 @@ Fila *leitura(char *path) {
     if (arquivo != NULL) {
         char *linha = (char*) malloc(22 * sizeof(char));
         while( ! feof(arquivo) ){
-            
-
             char **sudoku = alocaSudoku();
 
             for (int i = 0; i < 9; i++) {
                 if (fgets(linha, 22, arquivo)) {
-
                     if(strlen(linha) < 5){ //quebra de linha do subgrid
                         fgets(linha, 22, arquivo);
                     } 
-
-
                     sudoku[i][0] = linha[0];
                     sudoku[i][1] = linha[2];
                     sudoku[i][2] = linha[4];

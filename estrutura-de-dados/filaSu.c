@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "./filaSu.h"
-#include "sudoku.h"
-#include "saida.h"
+#include "../sudoku.h"
+#include "../saida.h"
 
 NO *criaNOSu() {
     NO *no = (NO*)malloc(sizeof(NO));
