@@ -3,8 +3,8 @@ estrutura-de-dados = ./estrutura-de-dados/fila.o ./estrutura-de-dados/lista.o
 run: 
 	./sudoku
 
-build: ./main.o leitura.o saida.o sudoku.o heuristica.o backtracking.o $(estrutura-de-dados)
-	gcc main.c leitura.o saida.o sudoku.o heuristica.o backtracking.o $(estrutura-de-dados) -o ./sudoku
+build: ./main.o leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados)
+	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados) -o ./sudoku
 
 main.o: ./main.c ./leitura.h  ./heuristica.h ./sudoku.h ./saida.h
 	gcc -c main.c -o main.o
@@ -20,6 +20,9 @@ sudoku.o: ./sudoku.c ./sudoku.h
 
 backtracking.o: ./backtracking.c ./backtracking.h 
 	gcc -c backtracking.c -o backtracking.o
+
+cronometro.o: ./cronometro.c cronometro.h
+	gcc -c cronometro.c -o cronometro.o
 
 heuristica.o: ./heuristica.c ./heuristica.h
 	gcc -c heuristica.c -o heuristica.o
