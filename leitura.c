@@ -3,6 +3,7 @@
 #include <string.h>
 #include "./sudoku.h"
 #include "filaSu.h"
+#include "saida.h"
 
 int **converteSudoku(char **original){
    int **copia = alocaSudokuInt();
@@ -30,19 +31,15 @@ Fila *leitura(char *path) {
         while( ! feof(arquivo) ){
             
 
-            char **sudoku = NULL;
-            sudoku = alocaSudoku();
+            char **sudoku = alocaSudoku();
 
             for (int i = 0; i < 9; i++) {
                 if (fgets(linha, 22, arquivo)) {
 
                     if(strlen(linha) < 5){ //quebra de linha do subgrid
                         fgets(linha, 22, arquivo);
-                        if(strlen(linha) < 5){  // 2 espaços(novo sudoku)
-                            fgets(linha, 22, arquivo);
-                            break;
-                        }
                     } 
+
 
                     sudoku[i][0] = linha[0];
                     sudoku[i][1] = linha[2];
@@ -55,9 +52,10 @@ Fila *leitura(char *path) {
                     sudoku[i][8] = linha[18];
                 }
             }
+            fgets(linha, 22, arquivo); // comer a segunda linha na troca de sudoku
 
             enfileirarSu(sudokus, converteSudoku(sudoku));
-            printf("%d \n", con);
+            //printf("%d \n", con);
             con++;
         }
 
