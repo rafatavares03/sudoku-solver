@@ -15,7 +15,7 @@ void imprimeSudoku(int** sudoku){
     printf("\n");
 }
 
-void escreveSudoku(int **sudoku, char *path){
+void escreveSudoku(int **sudoku, char *path, char *operacion, int i){
     FILE *arquivo = fopen(path, "a");
 
     if (arquivo == NULL) {
@@ -23,6 +23,7 @@ void escreveSudoku(int **sudoku, char *path){
         return;
     }
 
+    fprintf(arquivo, "%s: %d\n", operacion, i);
     fprintf(arquivo, "+---------------------+\n");
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
@@ -42,7 +43,7 @@ void escreveSudoku(int **sudoku, char *path){
         if ((i + 1) % 3 == 0 && i != 8) fprintf(arquivo, "|---------------------|\n");
     }
     fprintf(arquivo, "+---------------------+\n");
-    fprintf(arquivo, "\n\n\n");
+    fprintf(arquivo, "\n");
 
     fclose(arquivo);
 }
@@ -57,9 +58,10 @@ void escreveArquivo(Fila *sudoku, char *path, char *operacion){
     struct timeval inicio = iniciaCronometro();
 
     NO *susu = sudoku->inicio;
+    int i = 1; //contagem
     while(susu != NULL){
-        escreveSudoku(susu->sudoku, path);
-        susu = susu->prox;
+        escreveSudoku(susu->sudoku, path, operacion, i);
+        susu = susu->prox; i++;
     }
     
     //tem que ter tamanho fixp pra n dar seg falha
