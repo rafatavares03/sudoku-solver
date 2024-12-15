@@ -82,15 +82,15 @@ void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
         }
     }
 
-    int quadranteLinha = linha - linha % 3;
-    int quadranteColuna = coluna - coluna % 3;
-    for(int i = 0; i < 3; i++) {
+    int quadranteLinha = 3 * (linha / 3);
+    int quadranteColuna =  3 * (coluna % 3);
+    for(int i = quadranteLinha; i < (quadranteLinha + 3); i++) {
         if(i == linha) continue;
         for(int j = 0; j < 3; j++) {
             if(j == coluna) continue;
 
-            if (matriz[i + quadranteLinha][j + quadranteColuna].possibilidad[valor-1] == 1)
-                matriz[i + quadranteLinha][j + quadranteColuna].possibilidade[valor-1] = 0;
+            if (matriz[quadranteLinha][quadranteColuna].possibilidade[valor-1] == 1)
+                matriz[quadranteLinha][quadranteColuna].possibilidade[valor-1] = 0;
             
         }
     }
@@ -108,13 +108,13 @@ void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
 
     }
 
-    int quadranteLinha = linha - linha % 3;
-    int quadranteColuna = coluna - coluna % 3;
-    for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 3; j++) {
-            if(matriz[i+quadranteLinha][j+quadranteColuna].ehFixo != 1) {
-                if(seguro(matriz, i+quadranteLinha, j+quadranteLinha, valor)) 
-                    matriz[i+quadranteLinha][j+quadranteColuna].possibilidade[valor-1] = 1;
+    int quadranteLinha = 3 * (linha / 3);
+    int quadranteColuna =  3 * (coluna % 3);
+    for(int i = quadranteLinha; i < (quadranteLinha + 3); i++) {
+        for(int j = quadranteColuna; j < (quadranteColuna + 3); j++) {
+            if(matriz[quadranteLinha][quadranteColuna].ehFixo != 1) {
+                if(seguro(matriz, quadranteLinha, quadranteLinha, valor)) 
+                    matriz[quadranteLinha][quadranteColuna].possibilidade[valor-1] = 1;
             }
         }
     }
@@ -125,7 +125,7 @@ void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
             if(matriz[i][j].valor == 0) {
-                
+
                 int quantidade = 0;
                 for(int k = 0; k < 9; k++)
                     quantidade += matriz[i][j].possibilidade[k];
@@ -167,6 +167,7 @@ int **structPraMatriz(Sudoku *sudoku){
     int **sudokuDefinitivo = alocaSudokuInt();
     
     if(sudoku == NULL) return NULL;
+
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
             sudokuDefinitivo[i][j] = sudoku->matriz[i][j].valor;
@@ -191,8 +192,11 @@ int** intermediarioBack(int **sudokuInicial){
     }
     
     backtrackingHeuristica(sudoku->matriz);
+    
     sudokuDefinitivo = structPraMatriz(sudoku);
 
+    //imprimeSudoku(sudokuDefinitivo);
+   
     destroiSudokuStruct(sudoku);
 
     return sudokuDefinitivo;

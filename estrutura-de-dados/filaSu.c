@@ -7,9 +7,7 @@
 
 NO *criaNOSu() {
     NO *no = (NO*)malloc(sizeof(NO));
-    if(no != NULL){
-        no->sudoku = alocaSudokuInt();
-    }
+    //sudoku é alocado quando crio algo
     return no;
 }
 
