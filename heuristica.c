@@ -139,7 +139,6 @@ int backtrackingHeuristica(Posicao **sudoku) {
 
     for (int valor = 1; valor <= 9; valor++) {
         if (seguro(sudoku, linha, coluna, valor)) {
-            if(buscaElemento(sudoku[linha][coluna].possibilidade, valor) == -1) printf("uai %d, l=%d, c=%d\n", valor, linha, coluna);
             sudoku[linha][coluna].valor = valor;
             removePossibilidade(sudoku, linha, coluna, valor); // remove o valor inserido como possibilidade nas posições de mesmo quadrante, linha e coluna
             if (backtrackingHeuristica(sudoku)) { // o sudoku conseguiu ser resolvido
@@ -204,7 +203,7 @@ Fila* resolveSudokuHeuristica(Fila *sudokus) {
     }
 
 
-    double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
+    double aux = finalizaCronometro(inicio, "Heuristica", tempoDecorrido);
     tempoDecorrido = aux;
     
     return sudSolucao;
