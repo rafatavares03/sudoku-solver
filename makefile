@@ -1,4 +1,4 @@
-estrutura-de-dados = ./estrutura-de-dados/fila.o ./estrutura-de-dados/lista.o ./estrutura-de-dados/filaSu.o
+estrutura-de-dados =  ./estrutura-de-dados/lista.o ./estrutura-de-dados/filaSu.o
 
 run: 
 	./sudoku su-do-ku.txt ku-do-su.txt
@@ -29,9 +29,6 @@ cronometro.o: ./cronometro.c cronometro.h
 
 heuristica.o: ./heuristica.c ./heuristica.h
 	gcc -c heuristica.c -o heuristica.o
-
-fila.o: ./estrutura-de-dados/fila.c ./estrutura-de-dados/fila.h
-	gcc -c ./estrutura-de-dados/fila.c -o ./estrutura-de-dados/fila.o
 
 lista.o: ./estrutura-de-dados/lista.c ./estrutura-de-dados/lista.h
 	gcc -c ./estrutura-de-dados/lista.c -o ./estrutura-de-dados/lista.o

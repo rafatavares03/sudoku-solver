@@ -25,11 +25,11 @@ int **converteSudoku(char **original){
 }
 
 Fila *leitura(char *path) {
-    printf("---------------\n");
+    printf("-------------------------------------------------------------------------------\n");
 
     struct timeval inicio = iniciaCronometro();
     
-    Fila *sudokus = criaFila();
+    Fila *sudokus = criaFilaSu();
     FILE *arquivo = fopen(path, "r");
     int con =1;
 

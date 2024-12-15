@@ -38,15 +38,10 @@ Fila* resolveSudokuForcaBruta(Fila *sudokus){
     Fila* sudokusResolvidos = criaFilaSu();
 
     NO *susu = sudokus->inicio;
-    printf("Forca Bruta: \n");
-    int nu = 1;
     while(susu != NULL){
         int **sudokuBack = alocaSudokuInt();
         sudokuBack = backtracking(susu->sudoku);
-        enfileirarSu(sudokusResolvidos, sudokuBack);       
-
-        //printf("_________________ %d _________________\n", nu); nu++;
-        //imprimeSudoku(susu->sudoku);
+        enfileirarSu(sudokusResolvidos, sudokuBack); //nao aloca mais no enfileira //tirar comentario depois   
         susu = susu->prox;
     }
 

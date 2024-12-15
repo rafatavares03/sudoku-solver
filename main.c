@@ -17,18 +17,25 @@ int main(int arg, char *argv[]){
     
     //cria ou zera o arquivo;
     initArquivo(argv[2]);
+
+    printf("-------------------------------------------------------------------------------\n");
     
     Fila *sudHeu = criaFilaSu();
     sudHeu = resolveSudokuHeuristica(sudokus);
     escreveArquivo(sudHeu, argv[2], "heuristica"); 
 
-    printf("------\n");
+    printf("-------------------------------------------------------------------------------\n");
     
     Fila *sudBruta = criaFilaSu();
     sudBruta = resolveSudokuForcaBruta(sudokus);
     escreveArquivo(sudBruta, argv[2], "forca bruta");
 
+    printf("-------------------------------------------------------------------------------\n");
+
 
     destroiFilaSu(sudokus);
+    destroiFilaSu(sudHeu);
+    destroiFilaSu(sudBruta);
+
     return 0;
 }

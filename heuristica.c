@@ -164,7 +164,7 @@ int backtrackingHeuristica(Posicao **sudoku) {
 
 
 int **structPraMatriz(Sudoku *sudoku){
-    int **sudokuDefinitivo = alocaSudokuInt();
+    int **sudokuDefinitivo = alocaSudokuInt(); //aloca aqui e depos passa pro no
     
     if(sudoku == NULL) return NULL;
 
@@ -210,7 +210,6 @@ Fila* resolveSudokuHeuristica(Fila *sudokus) {
     NO_Fila *resolvendo = sudokus->inicio;
     while(resolvendo != NULL){
         sudInter = intermediarioBack(resolvendo->sudoku);
-        printf("\n\n");
         enfileirarSu(sudSolucao, sudInter);
         resolvendo = resolvendo->prox;
     }
