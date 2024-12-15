@@ -29,7 +29,7 @@ Fila *leitura(char *path) {
 
     struct timeval inicio = iniciaCronometro();
     
-    Fila *sudokus = criaFila();
+    Fila *sudokus = criaFilaSu();
     FILE *arquivo = fopen(path, "r");
     int con =1;
 
