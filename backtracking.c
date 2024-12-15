@@ -35,7 +35,7 @@ int** backtracking(int **sudoku) {
 
 Fila* resolveSudokuForcaBruta(Fila *sudokus){
     struct timeval inicio = iniciaCronometro();
-    Fila* sudokusResolvidos = criaFila();
+    Fila* sudokusResolvidos = criaFilaSu();
 
     NO *susu = sudokus->inicio;
     printf("Forca Bruta: \n");

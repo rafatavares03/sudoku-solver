@@ -14,7 +14,7 @@ typedef struct {
 typedef NO NO_Fila;  
 
 
-Fila *criaFila();
+Fila *criaFilaSu();
 void destroiFilaSu(Fila *fila);
 int enfileirarSu(Fila *fila, int** sudoku);
 int desenfileirarSu(Fila *fila);

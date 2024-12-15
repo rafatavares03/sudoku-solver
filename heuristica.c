@@ -192,7 +192,7 @@ int** intermediarioBack(int **sudokuInicial){
 
 Fila* resolveSudokuHeuristica(Fila *sudokus) {
     struct timeval inicio = iniciaCronometro();
-    Fila *sudSolucao = criaFila();
+    Fila *sudSolucao = criaFilaSu();
     int **sudInter;
 
     NO_Fila *resolvendo = sudokus->inicio;
