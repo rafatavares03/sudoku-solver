@@ -6,7 +6,7 @@
 
 
 typedef struct Posicao{
-    Lista *possibilidade;
+    int *possibilidade;
     int valor;
     int ehFixo;
 } Posicao;

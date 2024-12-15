@@ -11,8 +11,8 @@
 
 void InicializaPosicao(Posicao *posicao){
     if(posicao != NULL) {
-        posicao->possibilidade = criaLista();
-        for(int i = 0; i < 9; i++) insereElemento(posicao->possibilidade, i+1);
+        posicao->possibilidade = (int*) malloc(sizeof(int) * 9);
+        for(int i = 0; i < 9; i++) posicao->possibilidade[i] = 0;
         posicao->valor = 0;
         posicao->ehFixo = 0;
     }
@@ -20,6 +20,7 @@ void InicializaPosicao(Posicao *posicao){
 
 Sudoku *criaSudoku() {
     Sudoku *sudoku = (Sudoku*)malloc(sizeof(Sudoku));
+
     if(sudoku != NULL) {
         sudoku->matriz = (Posicao**)malloc(9 * sizeof(Posicao*));
         for(int i = 0; i < 9; i++) {
@@ -36,7 +37,7 @@ void destroiSudokuStruct(Sudoku *sudoku) {
     if(sudoku == NULL) return;
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
-            destroiLista(sudoku->matriz[i][j].possibilidade);
+            free(sudoku->matriz[i][j].possibilidade);
         }
         free(sudoku->matriz[i]);
     }
@@ -74,22 +75,23 @@ void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
     if(matriz == NULL) return;
     for(int i = 0; i < 9; i++) {
         if(matriz[linha][i].ehFixo != 1){
-            if(buscaElemento(matriz[linha][i].possibilidade, valor) != -1) removeElemento(matriz[linha][i].possibilidade, valor);
+            if(matriz[linha][i].possibilidade[valor-1] == 1) matriz[linha][i].possibilidade[valor-1] = 0;
         }
         if(matriz[i][coluna].ehFixo != 1) {
-            if(buscaElemento(matriz[i][coluna].possibilidade, valor) != -1) removeElemento(matriz[i][coluna].possibilidade, valor);
+            if(matriz[i][coluna].possibilidade[valor-1] == 1) matriz[i][coluna].possibilidade[valor-1] = 0;
         }
+    }
 
-        int quadranteLinha = linha - linha % 3;
-        int quadranteColuna = coluna - coluna % 3;
-        for(int i = 0; i < 3; i++) {
-            if(i == linha) continue;
-            for(int j = 0; j < 3; j++) {
-                if(j == coluna) continue;
-                if(buscaElemento(matriz[i + quadranteLinha][j + quadranteColuna].possibilidade, valor) != -1){
-                    removeElemento(matriz[i + quadranteLinha][j + quadranteColuna].possibilidade, valor);
-                }
-            }
+    int quadranteLinha = linha - linha % 3;
+    int quadranteColuna = coluna - coluna % 3;
+    for(int i = 0; i < 3; i++) {
+        if(i == linha) continue;
+        for(int j = 0; j < 3; j++) {
+            if(j == coluna) continue;
+
+            if (matriz[i + quadranteLinha][j + quadranteColuna].possibilidad[valor-1] == 1)
+                matriz[i + quadranteLinha][j + quadranteColuna].possibilidade[valor-1] = 0;
+            
         }
     }
 }
@@ -98,19 +100,21 @@ void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
     if(matriz == NULL) return;
     for(int i = 0; i < 9; i++) {
         if(matriz[linha][i].ehFixo != 1){
-            if(seguro(matriz, linha, i, valor)) insereElemento(matriz[linha][i].possibilidade, valor);
+            if(seguro(matriz, linha, i, valor)) matriz[linha][i].possibilidade[valor-1] = 1;
         }
         if(matriz[i][coluna].ehFixo != 1) {
-            if(seguro(matriz, i, coluna, valor)) insereElemento(matriz[i][coluna].possibilidade, valor);
+            if(seguro(matriz, i, coluna, valor)) matriz[i][coluna].possibilidade[valor-1] = 1;
         }
 
-        int quadranteLinha = linha - linha % 3;
-        int quadranteColuna = coluna - coluna % 3;
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                if(matriz[i+quadranteLinha][j+quadranteColuna].ehFixo != 1) {
-                    if(seguro(matriz, i+quadranteLinha, j+quadranteLinha, valor)) insereElemento(matriz[i+quadranteLinha][j+quadranteColuna].possibilidade, valor);
-                }
+    }
+
+    int quadranteLinha = linha - linha % 3;
+    int quadranteColuna = coluna - coluna % 3;
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            if(matriz[i+quadranteLinha][j+quadranteColuna].ehFixo != 1) {
+                if(seguro(matriz, i+quadranteLinha, j+quadranteLinha, valor)) 
+                    matriz[i+quadranteLinha][j+quadranteColuna].possibilidade[valor-1] = 1;
             }
         }
     }
@@ -121,8 +125,13 @@ void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
     for(int i = 0; i < 9; i++) {
         for(int j = 0; j < 9; j++) {
             if(matriz[i][j].valor == 0) {
-                if(menor > matriz[i][j].possibilidade->quantidade) {
-                    menor = matriz[i][j].possibilidade->quantidade;
+                
+                int quantidade = 0;
+                for(int k = 0; k < 9; k++)
+                    quantidade += matriz[i][j].possibilidade[k];
+                
+                if(menor > quantidade) {
+                    menor = quantidade;
                     *(linha) = i;
                     *(coluna) = j;
                 }
