@@ -34,6 +34,6 @@ lista.o: ./estrutura-de-dados/lista.c ./estrutura-de-dados/lista.h
 	gcc -c ./estrutura-de-dados/lista.c -o ./estrutura-de-dados/lista.o
 
 clean: 
-	rm ./*.o 
+	rm *.o 
 	rm ./estrutura-de-dados/*.o
-	./sudoku
+	rm sudoku

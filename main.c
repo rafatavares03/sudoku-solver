@@ -6,7 +6,6 @@
 #include "./leitura.h"
 #include "./saida.h"
 #include "./cronometro.h"  //no linux é show
-#include "./estrutura-de-dados/lista.h"
 #include "./estrutura-de-dados/filaSu.h"
 
 double tempoDecorrido = 0.0;
@@ -31,7 +30,6 @@ int main(int arg, char *argv[]){
     escreveArquivo(sudBruta, argv[2], "forca bruta");
 
     printf("-------------------------------------------------------------------------------\n");
-
 
     destroiFilaSu(sudokus);
     destroiFilaSu(sudHeu);
