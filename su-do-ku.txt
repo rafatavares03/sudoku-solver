@@ -11,14 +11,23 @@ v v v  v 2 v  v v v
 1 v v  v 7 v  v v 5
 
 
-4 v v  v 8 v  v v 3
-v v v  v 3 v  v v v
-2 1 v  v v 4  v 5 7
+4 v v v 8 v v v 3
+v v v v 3 v v v v
+2 1 v v v 4 v 5 7
+v v 2 4 v 7 v v v
+5 8 v v v v v 7 4
+v v v 8 v 9 1 v v
+8 7 v 3 v v v 1 2
+v v v v 2 v v v v
+1 v v v 7 v v v 5
 
-v v 2  4 v 7  v v v
-5 8 v  v v v  v 7 9
-v v v  8 v 9  1 v v
 
-8 7 v  3 v v  v 1 2
-v v v  v 2 v  v v v
-1 v v  v 7 v  v v 5z
+4vvv8vvv3
+vvvv3vvvv
+21vvv4v57
+vv24v7vvv
+58vvvvv79
+vvv8v91vv
+87v3vvv12
+vvvv2vvvv
+1vvv7vvv5
