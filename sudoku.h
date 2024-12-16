@@ -1,6 +1,8 @@
 #ifndef SUDOKU_H
 #define SUDOKU_H
 
+extern int DimensaoSudoku;
+
 char **alocaSudoku();
 int** alocaSudokuInt();
 void destroiSudoku(char** sudoku);

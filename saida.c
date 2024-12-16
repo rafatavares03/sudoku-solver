@@ -2,12 +2,14 @@
 #include <string.h>
 #include "./estrutura-de-dados/filaSu.h"
 #include "./cronometro.h"
+#include "./sudoku.h"
+
 
 
 void imprimeSudoku(int** sudoku){
-        for(int i = 0; i < 9; i++){
+        for(int i = 0; i < DimensaoSudoku; i++){
             printf("|");
-            for(int j = 0; j < 9; j++){
+            for(int j = 0; j < DimensaoSudoku; j++){
                 printf(" %d |", sudoku[i][j]);
             }
         printf("\n");
@@ -25,8 +27,8 @@ void escreveSudoku(int **sudoku, char *path, char *operacion, int i){
 
     fprintf(arquivo, "%s: %d\n", operacion, i);
     fprintf(arquivo, "+---------------------+\n");
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
+    for (int i = 0; i < DimensaoSudoku; i++) {
+        for (int j = 0; j < DimensaoSudoku; j++) {
             if(j == 0) fprintf(arquivo, "|");
             
             if(j == 8){

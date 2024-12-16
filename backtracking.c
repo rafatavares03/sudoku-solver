@@ -9,14 +9,14 @@
 
 
 int backtracking(int **sudoku) {
-    for(int linha = 0; linha < 9; linha++) {
-        for(int coluna = 0; coluna < 9; coluna++) {
+    for(int linha = 0; linha < DimensaoSudoku; linha++) {
+        for(int coluna = 0; coluna < DimensaoSudoku; coluna++) {
             if(sudoku[linha][coluna] == 0) {
-                int *list = (int*) malloc(sizeof(int) * 9); if(list == NULL) return 0; 
+                int *list = (int*) malloc(sizeof(int) * DimensaoSudoku); if(list == NULL) return 0; 
 
-                for(int i = 0; i < 9; i++) list[i] = i + 1;
+                for(int i = 0; i < DimensaoSudoku; i++) list[i] = i + 1;
 
-                for(int k = 0; k < 9; k++) {
+                for(int k = 0; k < DimensaoSudoku; k++) {
                     if(posicaoSegura(sudoku, list[k], linha, coluna)) {
                         sudoku[linha][coluna] = list[k];
                         if(backtracking(sudoku)) {

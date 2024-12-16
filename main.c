@@ -9,6 +9,7 @@
 #include "./estrutura-de-dados/filaSu.h"
 
 double tempoDecorrido = 0.0;
+int DimensaoSudoku = 9;
 
 int main(int arg, char *argv[]){
     printf("-------------------------------------------------------------------------------\n");

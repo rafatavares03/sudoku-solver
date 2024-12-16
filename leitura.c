@@ -7,11 +7,10 @@
 #include "./cronometro.h"
 
 
-
 int **converteSudoku(char **original){
    int **copia = alocaSudokuInt();
-   for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 9; j++){
+   for(int i = 0; i < DimensaoSudoku; i++){
+        for(int j = 0; j < DimensaoSudoku; j++){
             if(original[i][j] == 'v'){
                 copia[i][j] = 0;
             } else {
@@ -36,7 +35,7 @@ Fila *leitura(char *path) {
         while( ! feof(arquivo) ){
             char **sudoku = alocaSudoku();
 
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < DimensaoSudoku; i++) {
                 if (fgets(linha, 22, arquivo)) {
                     if(strlen(linha) < 5){ //quebra de linha do subgrid
                         fgets(linha, 22, arquivo);
@@ -45,7 +44,7 @@ Fila *leitura(char *path) {
                     sudoku[i][1] = linha[2];
                     sudoku[i][2] = linha[4];
                     sudoku[i][3] = linha[7];
-                    sudoku[i][4] = linha[9];
+                    sudoku[i][4] = linha[DimensaoSudoku];
                     sudoku[i][5] = linha[11];
                     sudoku[i][6] = linha[14];
                     sudoku[i][7] = linha[16];

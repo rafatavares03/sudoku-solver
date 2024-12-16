@@ -8,11 +8,10 @@
 #include "saida.h"
 
 
-
 void InicializaPosicao(Posicao *posicao){
     if(posicao != NULL) {
-        posicao->possibilidade = (int*) malloc(sizeof(int) * 9);
-        for(int i = 0; i < 9; i++) posicao->possibilidade[i] = 0;
+        posicao->possibilidade = (int*) malloc(sizeof(int) * DimensaoSudoku);
+        for(int i = 0; i < DimensaoSudoku; i++) posicao->possibilidade[i] = 0;
         posicao->valor = 0;
         posicao->ehFixo = 0;
     }
@@ -22,10 +21,10 @@ Sudoku *criaSudoku() {
     Sudoku *sudoku = (Sudoku*)malloc(sizeof(Sudoku));
 
     if(sudoku != NULL) {
-        sudoku->matriz = (Posicao**)malloc(9 * sizeof(Posicao*));
-        for(int i = 0; i < 9; i++) {
-            sudoku->matriz[i] = (Posicao*)malloc(9 * sizeof(Posicao));
-            for(int j = 0; j < 9; j++) {
+        sudoku->matriz = (Posicao**)malloc(DimensaoSudoku * sizeof(Posicao*));
+        for(int i = 0; i < DimensaoSudoku; i++) {
+            sudoku->matriz[i] = (Posicao*)malloc(DimensaoSudoku * sizeof(Posicao));
+            for(int j = 0; j < DimensaoSudoku; j++) {
                 InicializaPosicao(&sudoku->matriz[i][j]); 
             }
         }
@@ -35,8 +34,8 @@ Sudoku *criaSudoku() {
 
 void destroiSudokuStruct(Sudoku *sudoku) {
     if(sudoku == NULL) return;
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
+        for(int j = 0; j < DimensaoSudoku; j++) {
             free(sudoku->matriz[i][j].possibilidade);
         }
         free(sudoku->matriz[i]);
@@ -47,8 +46,8 @@ void destroiSudokuStruct(Sudoku *sudoku) {
 
 void imprimeSudokuStruct(Sudoku *sudoku) {
     if(sudoku == NULL) return;
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
+        for(int j = 0; j < DimensaoSudoku; j++) {
             printf("%d ", sudoku->matriz[i][j].valor);
         }
         printf("\n");
@@ -56,7 +55,7 @@ void imprimeSudokuStruct(Sudoku *sudoku) {
 }
 
 int seguro(Posicao **matriz, int linha, int coluna, int numero) {
-    for(int i = 0; i < 9; i++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
         if(matriz[linha][i].valor == numero || matriz[i][coluna].valor == numero) return 0;
     }
 
@@ -73,7 +72,7 @@ int seguro(Posicao **matriz, int linha, int coluna, int numero) {
 
 void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
     if(matriz == NULL) return;
-    for(int i = 0; i < 9; i++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
         if(matriz[linha][i].ehFixo != 1){
             if(matriz[linha][i].possibilidade[valor-1] == 1) matriz[linha][i].possibilidade[valor-1] = 0;
         }
@@ -98,7 +97,7 @@ void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
 
 void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
     if(matriz == NULL) return;
-    for(int i = 0; i < 9; i++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
         if(matriz[linha][i].ehFixo != 1){
             if(seguro(matriz, linha, i, valor)) matriz[linha][i].possibilidade[valor-1] = 1;
         }
@@ -122,12 +121,12 @@ void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
 
 void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
     int menor = 1000;
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
+        for(int j = 0; j < DimensaoSudoku; j++) {
             if(matriz[i][j].valor == 0) {
 
                 int quantidade = 0;
-                for(int k = 0; k < 9; k++)
+                for(int k = 0; k < DimensaoSudoku; k++)
                     quantidade += matriz[i][j].possibilidade[k];
                 
                 if(menor > quantidade) {
@@ -146,7 +145,7 @@ int backtrackingHeuristica(Posicao **sudoku) {
     // Não há mais posições vazias, ou seja, o sudoku foi resolvido
     if (linha == -1 && coluna == -1) return 1;
 
-    for (int valor = 1; valor <= 9; valor++) {
+    for (int valor = 1; valor <= DimensaoSudoku; valor++) {
         if (seguro(sudoku, linha, coluna, valor)) {
             sudoku[linha][coluna].valor = valor;
             removePossibilidade(sudoku, linha, coluna, valor); // remove o valor inserido como possibilidade nas posições de mesmo quadrante, linha e coluna
@@ -168,8 +167,8 @@ int **structPraMatriz(Sudoku *sudoku){
     
     if(sudoku == NULL) return NULL;
 
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
+        for(int j = 0; j < DimensaoSudoku; j++) {
             sudokuDefinitivo[i][j] = sudoku->matriz[i][j].valor;
         }
     }
@@ -181,8 +180,8 @@ int** intermediarioBack(int **sudokuInicial){
 
     int **sudokuDefinitivo; //aloca na conversao
 
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++) {
+    for(int i = 0; i < DimensaoSudoku; i++) {
+        for(int j = 0; j < DimensaoSudoku; j++) {
             if(sudokuInicial[i][j] != 0) {
                 sudoku->matriz[i][j].ehFixo = 1;
                 sudoku->matriz[i][j].valor = sudokuInicial[i][j];

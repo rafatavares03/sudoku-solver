@@ -5,38 +5,33 @@
 #include <string.h>
 #include "./sudoku.h"
 
-//int **0alocaSudokuInt();
-//char **alocaSudoku();
-//void destroiSudoku(char **sudoku);
-
-
 // ----------------------------------------------------- //
 
 char** alocaSudoku(){
-    char **sudoku = (char**) malloc (9 * sizeof(char*));
-    for(int i = 0; i < 9; i++){
-        sudoku[i] = (char*) malloc (9 * sizeof(char));        
+    char **sudoku = (char**) malloc (DimensaoSudoku * sizeof(char*));
+    for(int i = 0; i < DimensaoSudoku; i++){
+        sudoku[i] = (char*) malloc (DimensaoSudoku * sizeof(char));        
     } 
     return sudoku;
 }
 
 int** alocaSudokuInt(){
-    int **sudoku = (int**) malloc (9 * sizeof(int*));
-    for(int i = 0; i < 9; i++){
-        sudoku[i] = (int*) malloc (9 * sizeof(int));        
+    int **sudoku = (int**) malloc (DimensaoSudoku * sizeof(int*));
+    for(int i = 0; i < DimensaoSudoku; i++){
+        sudoku[i] = (int*) malloc (DimensaoSudoku * sizeof(int));        
     } 
     return sudoku;
 }
 
 void destroiSudoku(char** sudoku){
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < DimensaoSudoku; i++){
         free(sudoku[i]);
     }
     free(sudoku);
 }
 
 void destroiSudokuInt(int** sudoku){
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < DimensaoSudoku; i++){
         free(sudoku[i]);
     }
     free(sudoku);
@@ -44,8 +39,8 @@ void destroiSudokuInt(int** sudoku){
 
 int **copiaSudoku(int **original){
     int  **copia = alocaSudokuInt();
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 9 ; j++){
+    for(int i = 0; i < DimensaoSudoku; i++){
+        for(int j = 0; j < DimensaoSudoku ; j++){
             copia[i][j] = original[i][j];
         }
     }
@@ -53,7 +48,7 @@ int **copiaSudoku(int **original){
 }
 
 int posicaoSegura(int **sudoku, int num, int linha, int coluna) {
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < DimensaoSudoku; i++) {
         if (sudoku[linha][i] == num || sudoku[i][coluna] == num) {
             return 0;
         }
