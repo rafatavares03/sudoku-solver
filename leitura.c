@@ -6,7 +6,6 @@
 #include "saida.h"
 #include "./cronometro.h"
 
-
 int **converteSudoku(char **original){
    int **copia = alocaSudokuInt();
    for(int i = 0; i < DimensaoSudoku; i++){
@@ -30,28 +29,34 @@ Fila *leitura(char *path) {
     FILE *arquivo = fopen(path, "r");
 
     if (arquivo != NULL) {
-        char *linha = (char*) malloc(22 * sizeof(char));
+        int tama = (DimensaoSudoku * 3); 
+        // calculo exato :( dimensao * 2) + sqrt(dimensao)
+        //gasto mais memoria pra evitar calculo de raiz
+
+        char *linha = (char*) malloc(tama * sizeof(char));
         
         while( ! feof(arquivo) ){
             char **sudoku = alocaSudoku();
 
+
             for (int i = 0; i < DimensaoSudoku; i++) {
-                if (fgets(linha, 22, arquivo)) {
+                if (fgets(linha, tama, arquivo)) {
                     if(strlen(linha) < 5){ //quebra de linha do subgrid
-                        fgets(linha, 22, arquivo);
+                        fgets(linha, tama, arquivo);
                     } 
-                    sudoku[i][0] = linha[0];
-                    sudoku[i][1] = linha[2];
-                    sudoku[i][2] = linha[4];
-                    sudoku[i][3] = linha[7];
-                    sudoku[i][4] = linha[DimensaoSudoku];
-                    sudoku[i][5] = linha[11];
-                    sudoku[i][6] = linha[14];
-                    sudoku[i][7] = linha[16];
-                    sudoku[i][8] = linha[18];
+                    
                 }
+
+                for(int j = 0, k = 0; linha[k] != '\0' && linha[k] != '\n'; k++){
+                    if(linha[k] != ' '){  // Ignora espaços em branco
+                        sudoku[i][j] = linha[k];
+                        j++;
+                    }
+                }
+
+
             }
-            fgets(linha, 22, arquivo); // comer a segunda linha na troca de sudoku
+            fgets(linha, tama, arquivo); // comer a segunda linha na troca de sudoku
 
             enfileirarSu(sudokus, converteSudoku(sudoku)); 
             destroiSudoku(sudoku);

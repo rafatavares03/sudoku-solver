@@ -21,7 +21,7 @@ int backtracking(int **sudoku) {
                         sudoku[linha][coluna] = list[k];
                         if(backtracking(sudoku)) {
                             free(list); 
-                            return 0;
+                            return 1;
                         }
                         sudoku[linha][coluna] = 0; 
                     }
@@ -32,7 +32,7 @@ int backtracking(int **sudoku) {
             }
         }
     }
-    return 0;
+    return 1;
 }
 
 
