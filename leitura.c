@@ -20,21 +20,19 @@ int **converteSudoku(char **original){
             }
         }
     }
-    destroiSudoku(original);
+
     return copia;
 }
 
 Fila *leitura(char *path) {
-    printf("-------------------------------------------------------------------------------\n");
-
     struct timeval inicio = iniciaCronometro();
     
     Fila *sudokus = criaFilaSu();
     FILE *arquivo = fopen(path, "r");
-    int con =1;
 
     if (arquivo != NULL) {
         char *linha = (char*) malloc(22 * sizeof(char));
+        
         while( ! feof(arquivo) ){
             char **sudoku = alocaSudoku();
 
@@ -56,9 +54,9 @@ Fila *leitura(char *path) {
             }
             fgets(linha, 22, arquivo); // comer a segunda linha na troca de sudoku
 
-            enfileirarSu(sudokus, converteSudoku(sudoku));
-            //printf("%d \n", con);
-            con++;
+            enfileirarSu(sudokus, converteSudoku(sudoku)); 
+            destroiSudoku(sudoku);
+
         }
 
         fclose(arquivo);

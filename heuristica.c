@@ -207,7 +207,7 @@ Fila* resolveSudokuHeuristica(Fila *sudokus) {
     Fila *sudSolucao = criaFilaSu();
     int **sudInter;
 
-    NO_Fila *resolvendo = sudokus->inicio;
+    NO *resolvendo = sudokus->inicio;
     while(resolvendo != NULL){
         sudInter = intermediarioBack(resolvendo->sudoku);
         enfileirarSu(sudSolucao, sudInter);

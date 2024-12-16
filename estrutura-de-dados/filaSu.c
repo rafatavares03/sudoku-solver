@@ -7,7 +7,8 @@
 
 NO *criaNOSu() {
     NO *no = (NO*)malloc(sizeof(NO));
-    //sudoku é alocado quando crio algo
+    no->prox = NULL;
+    no->sudoku = NULL;
     return no;
 }
 
@@ -43,7 +44,7 @@ int enfileirarSu(Fila *fila, int **sudoku) {
     if(fila == NULL) return 0;
     NO *novo = criaNOSu();
     novo->sudoku = sudoku;
-    novo->prox = NULL;
+    
     if(estaVaziaSu(fila)){
         fila->inicio = novo;
     } else {

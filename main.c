@@ -11,6 +11,8 @@
 double tempoDecorrido = 0.0;
 
 int main(int arg, char *argv[]){
+    printf("-------------------------------------------------------------------------------\n");
+
     Fila* sudokus = leitura(argv[1]);
     //imprimirFilaSu(sudokus);
     
@@ -19,14 +21,14 @@ int main(int arg, char *argv[]){
 
     printf("-------------------------------------------------------------------------------\n");
     
-    Fila *sudHeu = criaFilaSu();
-    sudHeu = resolveSudokuHeuristica(sudokus);
+    Fila *sudHeu = resolveSudokuHeuristica(sudokus);
     escreveArquivo(sudHeu, argv[2], "heuristica"); 
+
+    //imprimirFilaSu(sudokus);
 
     printf("-------------------------------------------------------------------------------\n");
     
-    Fila *sudBruta = criaFilaSu();
-    sudBruta = resolveSudokuForcaBruta(sudokus);
+    Fila *sudBruta = resolveSudokuForcaBruta(sudokus);
     escreveArquivo(sudBruta, argv[2], "forca bruta");
 
     printf("-------------------------------------------------------------------------------\n");
