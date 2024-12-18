@@ -8,7 +8,8 @@
 
 
 
-int backtracking(int **sudoku) {
+int backtracking(int **sudoku, int *aaa) {
+    (*aaa)++;
     for(int linha = 0; linha < DimensaoSudoku; linha++) {
         for(int coluna = 0; coluna < DimensaoSudoku; coluna++) {
             if(sudoku[linha][coluna] == 0) {
@@ -19,7 +20,7 @@ int backtracking(int **sudoku) {
                 for(int k = 0; k < DimensaoSudoku; k++) {
                     if(posicaoSegura(sudoku, list[k], linha, coluna)) {
                         sudoku[linha][coluna] = list[k];
-                        if(backtracking(sudoku)) {
+                        if(backtracking(sudoku, aaa)) {
                             free(list); 
                             return 1;
                         }
@@ -43,7 +44,9 @@ Fila* resolveSudokuForcaBruta(Fila *sudokus){
     NO *susu = sudokus->inicio;
     while(susu != NULL){
         int **sudokuBack = copiaSudoku(susu->sudoku);
-        backtracking(sudokuBack);
+        int aaa = 0;
+        backtracking(sudokuBack, &aaa);
+        printf( "aaa  = %d\n", aaa);
         enfileirarSu(sudokusResolvidos, sudokuBack); //nao aloca mais no enfileira //tirar comentario depois   
         susu = susu->prox;
     }

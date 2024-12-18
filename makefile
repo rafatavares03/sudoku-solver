@@ -2,13 +2,13 @@ estrutura-de-dados =  ./estrutura-de-dados/lista.o ./estrutura-de-dados/filaSu.o
 
 run: 
 	clear
-	./sudoku su-do-ku.txt ku-do-su.txt
+	./sudoku.exe su-do-ku.txt ku-do-su.txt
 
 leak:
 	valgrind --leak-check=full --show-leak-kinds=all ./sudoku su-do-ku.txt ku-do-su.txt
 
 build: ./main.o leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados)
-	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados) -o ./sudoku 
+	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados) -o ./sudoku.exe
 
 main.o: ./main.c ./leitura.h  ./heuristica.h ./sudoku.h ./saida.h
 	gcc -c main.c -o main.o
@@ -40,4 +40,4 @@ lista.o: ./estrutura-de-dados/lista.c ./estrutura-de-dados/lista.h
 clean: 
 	rm *.o 
 	rm ./estrutura-de-dados/*.o
-	rm sudoku
+	rm sudoku.exe

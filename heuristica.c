@@ -84,12 +84,11 @@ void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
     int quadranteLinha = 3 * (linha / 3);
     int quadranteColuna =  3 * (coluna % 3);
     for(int i = quadranteLinha; i < (quadranteLinha + 3); i++) {
-        if(i == linha) continue;
-        for(int j = 0; j < 3; j++) {
-            if(j == coluna) continue;
+        for(int j = quadranteColuna; j < (quadranteColuna + 3); j++) {
 
-            if (matriz[quadranteLinha][quadranteColuna].possibilidade[valor-1] == 1)
-                matriz[quadranteLinha][quadranteColuna].possibilidade[valor-1] = 0;
+            if (matriz[i][j].possibilidade[valor-1] == 1)
+                matriz[i][j].possibilidade[valor-1] = 0;
+
             
         }
     }
@@ -111,9 +110,9 @@ void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
     int quadranteColuna =  3 * (coluna % 3);
     for(int i = quadranteLinha; i < (quadranteLinha + 3); i++) {
         for(int j = quadranteColuna; j < (quadranteColuna + 3); j++) {
-            if(matriz[quadranteLinha][quadranteColuna].ehFixo != 1) {
-                if(seguro(matriz, quadranteLinha, quadranteLinha, valor)) 
-                    matriz[quadranteLinha][quadranteColuna].possibilidade[valor-1] = 1;
+            if(matriz[i][j].ehFixo != 1) {
+                if(seguro(matriz, i, j, valor)) 
+                    matriz[i][j].possibilidade[valor-1] = 1;
             }
         }
     }
@@ -139,7 +138,8 @@ void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
     }
 }
 
-int backtrackingHeuristica(Posicao **sudoku) {
+int backtrackingHeuristica(Posicao **sudoku, int *te) {
+    (*te)++;
     int linha = -1, coluna = -1;
     encontraMenorPossibilidade(sudoku, &linha, &coluna);
     // Não há mais posições vazias, ou seja, o sudoku foi resolvido
@@ -149,7 +149,7 @@ int backtrackingHeuristica(Posicao **sudoku) {
         if (seguro(sudoku, linha, coluna, valor)) {
             sudoku[linha][coluna].valor = valor;
             removePossibilidade(sudoku, linha, coluna, valor); // remove o valor inserido como possibilidade nas posições de mesmo quadrante, linha e coluna
-            if (backtrackingHeuristica(sudoku)) { // o sudoku conseguiu ser resolvido
+            if (backtrackingHeuristica(sudoku, te)) { // o sudoku conseguiu ser resolvido
                 return 1;
             } else { // o número inserido não trouxe solução para o sudoku
                 sudoku[linha][coluna].valor = 0; // reseta essa posição
@@ -185,13 +185,26 @@ int** intermediarioBack(int **sudokuInicial){
             if(sudokuInicial[i][j] != 0) {
                 sudoku->matriz[i][j].ehFixo = 1;
                 sudoku->matriz[i][j].valor = sudokuInicial[i][j];
-                removePossibilidade(sudoku->matriz, i, j, sudokuInicial[i][j]);
+                //removePossibilidade(sudoku->matriz, i, j, sudokuInicial[i][j]);
             }
         }
     }
-    
-    backtrackingHeuristica(sudoku->matriz);
-    
+
+    for(int i = 0; i < DimensaoSudoku; i++) {
+        for(int j = 0; j < DimensaoSudoku; j++) {
+            if(sudokuInicial[i][j] != 0) {
+                for(int k = 1; k <= DimensaoSudoku; k++){
+                    if(sudokuInicial[i][j] != k){
+                        adicionaPossibilidade(sudoku->matriz, i, j, sudokuInicial[i][j]);
+                    }
+                }
+            }
+        }
+    }
+
+    int te = 0;
+    backtrackingHeuristica(sudoku->matriz, &te);
+    printf("tenta heu : %d\n", te );
     sudokuDefinitivo = structPraMatriz(sudoku);
 
     //imprimeSudoku(sudokuDefinitivo);
