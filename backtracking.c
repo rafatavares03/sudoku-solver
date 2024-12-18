@@ -46,7 +46,7 @@ Fila* resolveSudokuForcaBruta(Fila *sudokus){
         int **sudokuBack = copiaSudoku(susu->sudoku);
         int aaa = 0;
         backtracking(sudokuBack, &aaa);
-        printf( "aaa  = %d\n", aaa);
+        printf( "tentativas back  = %d\n", aaa);
         enfileirarSu(sudokusResolvidos, sudokuBack); //nao aloca mais no enfileira //tirar comentario depois   
         susu = susu->prox;
     }

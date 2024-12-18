@@ -21,4 +21,5 @@ void imprimeSudokuStruct(Sudoku *sudoku);
 Fila *resolveSudokuHeuristica(Fila *sudokus);
 
 
+
 #endif

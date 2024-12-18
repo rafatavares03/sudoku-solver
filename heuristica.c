@@ -176,11 +176,7 @@ int **structPraMatriz(Sudoku *sudoku){
     return sudokuDefinitivo;
 }
 
-int** intermediarioBack(int **sudokuInicial){
-    Sudoku *sudoku = criaSudoku();
-
-    int **sudokuDefinitivo; //aloca na conversao
-
+void preencheSudoku(Sudoku *sudoku, int **sudokuInicial){
     for(int i = 0; i < DimensaoSudoku; i++) {
         for(int j = 0; j < DimensaoSudoku; j++) {
             if(sudokuInicial[i][j] != 0) {
@@ -201,11 +197,18 @@ int** intermediarioBack(int **sudokuInicial){
             }
         }
     }
-    
+}
 
-    int te = 0;
-    backtrackingHeuristica(sudoku->matriz, &te);
-    printf("tenta heu : %d\n\n", te );
+
+int** intermediarioBack(int **sudokuInicial){
+    Sudoku *sudoku = criaSudoku();
+    preencheSudoku(sudoku, sudokuInicial);
+
+    int **sudokuDefinitivo; //aloca na conversao
+
+    int tentativas = 0;
+    backtrackingHeuristica(sudoku->matriz, &tentativas);
+    printf("tentativasn heuristica: %d\n", tentativas);
     sudokuDefinitivo = structPraMatriz(sudoku);
 
     //imprimeSudoku(sudokuDefinitivo);
