@@ -25,6 +25,7 @@ int main(int arg, char *argv[]){
     Fila *sudHeu = resolveSudokuHeuristica(sudokus);
     escreveArquivo(sudHeu, argv[2], "heuristica"); 
 
+
     //imprimirFilaSu(sudokus);
 
     printf("-------------------------------------------------------------------------------\n");
