@@ -185,7 +185,7 @@ void preencheSudoku(Sudoku *sudoku, int **sudokuInicial){
             }
         }
     }
-
+    
     for(int i = 0; i < DimensaoSudoku; i++){       
         for(int j = 0; j < DimensaoSudoku; j++) {
             if(sudokuInicial[i][j] == 0) {

@@ -1,4 +1,7 @@
-estrutura-de-dados =  ./estrutura-de-dados/lista.o ./estrutura-de-dados/fila.o
+OBJ_DIR = ./pontoOh
+SRC_DIR = ./estrutura-de-dados
+
+estrutura-de-dados = $(OBJ_DIR)/fila.o
 
 run: 
 	clear
@@ -7,37 +10,39 @@ run:
 leak:
 	valgrind --leak-check=full --show-leak-kinds=all ./sudoku.exe su-do-ku.txt ku-do-su.txt
 
-build: ./main.o leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados)
-	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados) -o ./sudoku.exe
+build: $(OBJ_DIR)/main.o $(OBJ_DIR)/leitura.o $(OBJ_DIR)/saida.o $(OBJ_DIR)/sudoku.o $(OBJ_DIR)/heuristica.o $(OBJ_DIR)/cronometro.o $(OBJ_DIR)/backtracking.o $(estrutura-de-dados)
+	gcc $(OBJ_DIR)/main.o $(OBJ_DIR)/leitura.o $(OBJ_DIR)/saida.o $(OBJ_DIR)/sudoku.o $(OBJ_DIR)/heuristica.o $(OBJ_DIR)/cronometro.o $(OBJ_DIR)/backtracking.o $(estrutura-de-dados) -o ./sudoku.exe
 
-main.o: ./main.c ./leitura.h ./heuristica.h ./sudoku.h ./saida.h
-	gcc -c main.c -o main.o
+$(OBJ_DIR)/main.o: ./main.c ./leitura.h ./heuristica.h ./sudoku.h ./saida.h | $(OBJ_DIR)
+	gcc -c main.c -o $(OBJ_DIR)/main.o
 
-leitura.o: ./leitura.c ./leitura.h
-	gcc -c leitura.c -o leitura.o
+$(OBJ_DIR)/leitura.o: ./leitura.c ./leitura.h | $(OBJ_DIR)
+	gcc -c leitura.c -o $(OBJ_DIR)/leitura.o
 
-fila.o: ./estrutura-de-dados/fila.c ./estrutura-de-dados/fila.h
-	gcc -c ./estrutura-de-dados/fila.c -o ./estrutura-de-dados/fila.o
+$(OBJ_DIR)/fila.o: $(SRC_DIR)/fila.c $(SRC_DIR)/fila.h | $(OBJ_DIR)
+	gcc -c $(SRC_DIR)/fila.c -o $(OBJ_DIR)/fila.o
 
-saida.o: ./saida.c ./saida.h
-	gcc -c saida.c -o saida.o
+$(OBJ_DIR)/saida.o: ./saida.c ./saida.h | $(OBJ_DIR)
+	gcc -c saida.c -o $(OBJ_DIR)/saida.o
 
-sudoku.o: ./sudoku.c ./sudoku.h
-	gcc -c sudoku.c -o sudoku.o
+$(OBJ_DIR)/sudoku.o: ./sudoku.c ./sudoku.h | $(OBJ_DIR)
+	gcc -c sudoku.c -o $(OBJ_DIR)/sudoku.o
 
-backtracking.o: ./backtracking.c ./backtracking.h 
-	gcc -c backtracking.c -o backtracking.o
+$(OBJ_DIR)/backtracking.o: ./backtracking.c ./backtracking.h | $(OBJ_DIR)
+	gcc -c backtracking.c -o $(OBJ_DIR)/backtracking.o
 
-cronometro.o: ./cronometro.c cronometro.h
-	gcc -c cronometro.c -o cronometro.o
+$(OBJ_DIR)/cronometro.o: ./cronometro.c cronometro.h | $(OBJ_DIR)
+	gcc -c cronometro.c -o $(OBJ_DIR)/cronometro.o
 
-heuristica.o: ./heuristica.c ./heuristica.h
-	gcc -c heuristica.c -o heuristica.o
+$(OBJ_DIR)/heuristica.o: ./heuristica.c ./heuristica.h | $(OBJ_DIR)
+	gcc -c heuristica.c -o $(OBJ_DIR)/heuristica.o
 
-lista.o: ./estrutura-de-dados/lista.c ./estrutura-de-dados/lista.h
-	gcc -c ./estrutura-de-dados/lista.c -o ./estrutura-de-dados/lista.o
+$(OBJ_DIR)/lista.o: $(SRC_DIR)/lista.c $(SRC_DIR)/lista.h | $(OBJ_DIR)
+	gcc -c $(SRC_DIR)/lista.c -o $(OBJ_DIR)/lista.o
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
 clean: 
-	rm *.o 
-	rm ./estrutura-de-dados/*.o
-	rm sudoku.exe
+	rm  $(OBJ_DIR)/*.o
+	rm  sudoku.exe
