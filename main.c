@@ -19,6 +19,8 @@ int main(int arg, char *argv[]){
     //imprimirFilaSu(sudokus);
     
     //cria ou zera o arquivo;
+
+    
     initArquivo(argv[2]);
 
     printf("-------------------------------------------------------------------------------\n");
