@@ -1,4 +1,4 @@
-OBJ_DIR = ./pontoOh
+OBJ_DIR = ./objetos
 SRC_DIR = ./estrutura-de-dados
 
 estrutura-de-dados = $(OBJ_DIR)/fila.o
