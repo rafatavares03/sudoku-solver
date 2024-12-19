@@ -37,9 +37,6 @@ $(OBJ_DIR)/cronometro.o: ./cronometro.c cronometro.h | $(OBJ_DIR)
 $(OBJ_DIR)/heuristica.o: ./heuristica.c ./heuristica.h | $(OBJ_DIR)
 	gcc -c heuristica.c -o $(OBJ_DIR)/heuristica.o
 
-$(OBJ_DIR)/lista.o: $(SRC_DIR)/lista.c $(SRC_DIR)/lista.h | $(OBJ_DIR)
-	gcc -c $(SRC_DIR)/lista.c -o $(OBJ_DIR)/lista.o
-
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
