@@ -54,7 +54,7 @@ Fila *leitura(char *path) {
 
             }
             fgets(linha, tama, arquivo); // comer a segunda linha na troca de sudoku
-            enfileirarSu(sudokus, sudoku); 
+            enfileirar(sudokus, sudoku); 
         }
 
         fclose(arquivo);
