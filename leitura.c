@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "./sudoku.h"
-#include "./estrutura-de-dados/filaSu.h"
+#include "./estrutura-de-dados/fila.h"
 #include "saida.h"
 #include "./cronometro.h"
 
@@ -25,7 +25,7 @@ int **converteSudoku(char **original){
 Fila *leitura(char *path) {
     struct timeval inicio = iniciaCronometro();
     
-    Fila *sudokus = criaFilaSu();
+    Fila *sudokus = criaFila();
     FILE *arquivo = fopen(path, "r");
 
     if (arquivo != NULL) {
@@ -54,7 +54,14 @@ Fila *leitura(char *path) {
 
             }
             fgets(linha, tama, arquivo); // comer a segunda linha na troca de sudoku
+<<<<<<< HEAD
             enfileirarSu(sudokus, sudoku); 
+=======
+
+            enfileirar(sudokus, converteSudoku(sudoku)); 
+            destroiSudoku(sudoku);
+
+>>>>>>> 4b11aeaa08c501c68e047c9c5c939474f80475f8
         }
 
         fclose(arquivo);

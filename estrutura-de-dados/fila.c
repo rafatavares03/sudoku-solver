@@ -1,70 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "./filaSu.h"
+#include "./fila.h"
 #include "../sudoku.h"
 #include "../saida.h"
 
-NO *criaNOSu() {
+NO *criaNO() {
     NO *no = (NO*)malloc(sizeof(NO));
     no->prox = NULL;
     no->sudoku = NULL;
     return no;
 }
 
-void destroiNOSu(NO *no){
+void destroiNO(NO *no){
     destroiSudokuInt(no->sudoku);
     free(no);
 }
 
-Fila *criaFilaSu(){
+Fila *criaFila(){
     Fila *fila = (Fila*)malloc(sizeof(Fila));
     if(fila != NULL){
         fila->inicio = fila->final = NULL;
+        fila->tamanho = 0;
     }
     return fila;
 }
 
-void destroiFilaSu(Fila *fila) {
+void destroiFila(Fila *fila) {
     if(fila == NULL) return;
     while(fila->inicio != NULL){
         NO *aux = fila->inicio;
         fila->inicio = fila->inicio->prox;
-        destroiNOSu(aux);
+        destroiNO(aux);
     }
     free(fila);
 }
 
-int estaVaziaSu(Fila *fila) {
+int estaVaziaFila(Fila *fila) {
     if(fila == NULL) return 0;
-    return (fila->inicio == NULL && fila->final == NULL) ? 1 : 0;
+    return fila->tamanho == 0;
 }
 
-int enfileirarSu(Fila *fila, int **sudoku) {
+int enfileirar(Fila *fila, int **sudoku) {
     if(fila == NULL) return 0;
-    NO *novo = criaNOSu();
+    NO *novo = criaNO();
     novo->sudoku = sudoku;
     
-    if(estaVaziaSu(fila)){
+    if(estaVaziaFila(fila)){
         fila->inicio = novo;
     } else {
         fila->final->prox = novo;
     }   
     fila->final = novo;
+    fila->tamanho++;
     return 1;
 }
 
-int desenfileirarSu(Fila *fila) {
+int desenfileirar(Fila *fila) {
     if(fila == NULL) return 0;
-    if(estaVaziaSu(fila)) return 0;
+    if(estaVaziaFila(fila)) return 0;
     NO *aux = fila->inicio;
     fila->inicio = aux->prox;
     if(fila->final == aux) fila->final = aux->prox;
-    destroiNOSu(aux);
+    destroiNO(aux);
+    fila->tamanho++;
     return 1;
 }
 
-void imprimirFilaSu(Fila *fila){
+void imprimirFila(Fila *fila){
     if (fila == NULL) return;
     NO *aux = fila->inicio;
     int number = 1;
@@ -76,16 +79,7 @@ void imprimirFilaSu(Fila *fila){
     printf("\n");
 }
 
-int tamanhoFilaSu(Fila *fila){
+int tamanhoFila(Fila *fila){
     if(fila == NULL) return -1;
-
-    int tamanho = 0;  
-    NO *aux = fila->inicio;  
-
-    while(aux != NULL){
-        tamanho++;           
-        aux = aux->prox;     
-    }
-
-    return tamanho;  
+    return fila->tamanho;
 }

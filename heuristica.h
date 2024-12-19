@@ -2,7 +2,7 @@
 #define HEURISTICA_H
 
 #include "./estrutura-de-dados/lista.h"
-#include "./estrutura-de-dados/filaSu.h"
+#include "./estrutura-de-dados/fila.h"
 
 
 typedef struct Posicao{
@@ -19,7 +19,5 @@ Sudoku *criaSudoku();
 void destroiSudokuStruct(Sudoku *sudoku);
 void imprimeSudokuStruct(Sudoku *sudoku);
 Fila *resolveSudokuHeuristica(Fila *sudokus);
-
-
 
 #endif

@@ -4,7 +4,7 @@
 #include "./cronometro.h"
 #include "./sudoku.h"
 #include "./estrutura-de-dados/lista.h"
-#include "./estrutura-de-dados/filaSu.h"
+#include "./estrutura-de-dados/fila.h"
 #include "saida.h"
 
 
@@ -139,8 +139,8 @@ void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
     //printf("%d=%d=%d     ", menor, (*linha), (*coluna));
 }
 
-int backtrackingHeuristica(Posicao **sudoku, int *te) {
-    (*te)++;
+int backtrackingHeuristica(Posicao **sudoku, int *tentativasContador) {
+    (*tentativasContador)++;
     int linha = -1, coluna = -1;
     encontraMenorPossibilidade(sudoku, &linha, &coluna);
     // Não há mais posições vazias, ou seja, o sudoku foi resolvido
@@ -150,7 +150,7 @@ int backtrackingHeuristica(Posicao **sudoku, int *te) {
         if (seguro(sudoku, linha, coluna, valor)) {
             sudoku[linha][coluna].valor = valor;
             removePossibilidade(sudoku, linha, coluna, valor); // remove o valor inserido como possibilidade nas posições de mesmo quadrante, linha e coluna
-            if (backtrackingHeuristica(sudoku, te)) { // o sudoku conseguiu ser resolvido
+            if (backtrackingHeuristica(sudoku, tentativasContador)) { // o sudoku conseguiu ser resolvido
                 return 1;
             } else { // o número inserido não trouxe solução para o sudoku
                 sudoku[linha][coluna].valor = 0; // reseta essa posição
@@ -220,20 +220,18 @@ int** intermediarioBack(int **sudokuInicial){
 
 Fila* resolveSudokuHeuristica(Fila *sudokus) {
     struct timeval inicio = iniciaCronometro();
-    Fila *sudSolucao = criaFilaSu();
-    int **sudInter;
+    Fila *solucaoSudokus = criaFila();
 
     NO *resolvendo = sudokus->inicio;
     while(resolvendo != NULL){
-        sudInter = intermediarioBack(resolvendo->sudoku);
-        enfileirarSu(sudSolucao, sudInter);
+        int **solucaoSudokuAtual = intermediarioBack(resolvendo->sudoku);
+        enfileirar(solucaoSudokus, solucaoSudokuAtual);
         resolvendo = resolvendo->prox;
     }
-
 
     double aux = finalizaCronometro(inicio, "Heuristica", tempoDecorrido);
     tempoDecorrido = aux;
     
-    return sudSolucao;
+    return solucaoSudokus;
 
 }

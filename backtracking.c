@@ -3,13 +3,13 @@
 #include "./cronometro.h"
 #include "./saida.h"
 #include "./sudoku.h"
-#include "./estrutura-de-dados/filaSu.h"
+#include "./estrutura-de-dados/fila.h"
 #include "saida.h"
 
 
 
-int backtracking(int **sudoku, int *aaa) {
-    (*aaa)++;
+int backtracking(int **sudoku, int *tentativasContador) {
+    (*tentativasContador)++;
     for(int linha = 0; linha < DimensaoSudoku; linha++) {
         for(int coluna = 0; coluna < DimensaoSudoku; coluna++) {
             if(sudoku[linha][coluna] == 0) {
@@ -20,7 +20,7 @@ int backtracking(int **sudoku, int *aaa) {
                 for(int k = 0; k < DimensaoSudoku; k++) {
                     if(posicaoSegura(sudoku, list[k], linha, coluna)) {
                         sudoku[linha][coluna] = list[k];
-                        if(backtracking(sudoku, aaa)) {
+                        if(backtracking(sudoku, tentativasContador)) {
                             free(list); 
                             return 1;
                         }
@@ -39,7 +39,7 @@ int backtracking(int **sudoku, int *aaa) {
 
 Fila* resolveSudokuForcaBruta(Fila *sudokus){
     struct timeval inicio = iniciaCronometro();
-    Fila* sudokusResolvidos = criaFilaSu();
+    Fila* sudokusResolvidos = criaFila();
 
     NO *susu = sudokus->inicio;
     while(susu != NULL){
@@ -47,7 +47,7 @@ Fila* resolveSudokuForcaBruta(Fila *sudokus){
         int aaa = 0;
         backtracking(sudokuBack, &aaa);
         printf( "tentativas back  = %d\n", aaa);
-        enfileirarSu(sudokusResolvidos, sudokuBack); //nao aloca mais no enfileira //tirar comentario depois   
+        enfileirar(sudokusResolvidos, sudokuBack); //nao aloca mais no enfileira //tirar comentario depois   
         susu = susu->prox;
     }
 

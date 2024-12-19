@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "./estrutura-de-dados/filaSu.h"
+#include "./estrutura-de-dados/fila.h"
 #include "./cronometro.h"
 #include "./sudoku.h"
 

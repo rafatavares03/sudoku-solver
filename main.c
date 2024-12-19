@@ -6,7 +6,7 @@
 #include "./leitura.h"
 #include "./saida.h"
 #include "./cronometro.h"  //no linux é show
-#include "./estrutura-de-dados/filaSu.h"
+#include "./estrutura-de-dados/fila.h"
 
 double tempoDecorrido = 0.0;
 int DimensaoSudoku = 9;
@@ -25,22 +25,22 @@ int main(int arg, char *argv[]){
 
     printf("-------------------------------------------------------------------------------\n");
     
-    Fila *sudHeu = resolveSudokuHeuristica(sudokus);
-    escreveArquivo(sudHeu, argv[2], "heuristica"); 
+    Fila *resolucoesDaHeuristica = resolveSudokuHeuristica(sudokus);
+    escreveArquivo(resolucoesDaHeuristica, argv[2], "heuristica"); 
 
 
     //imprimirFilaSu(sudokus);
 
     printf("-------------------------------------------------------------------------------\n");
     
-    Fila *sudBruta = resolveSudokuForcaBruta(sudokus);
-    escreveArquivo(sudBruta, argv[2], "forca bruta");
+    Fila *ResolucoesDaForcaBruta = resolveSudokuForcaBruta(sudokus);
+    escreveArquivo(ResolucoesDaForcaBruta, argv[2], "forca bruta");
 
     printf("-------------------------------------------------------------------------------\n");
 
-    destroiFilaSu(sudokus);
-    destroiFilaSu(sudHeu);
-    destroiFilaSu(sudBruta);
+    destroiFila(sudokus);
+    destroiFila(resolucoesDaHeuristica);
+    destroiFila(ResolucoesDaForcaBruta);
 
     return 0;
 }
