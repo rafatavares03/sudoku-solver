@@ -229,8 +229,7 @@ Fila* resolveSudokuHeuristica(Fila *sudokus) {
         resolvendo = resolvendo->prox;
     }
 
-    double aux = finalizaCronometro(inicio, "Heuristica", tempoDecorrido);
-    tempoDecorrido = aux;
+    finalizaCronometro(inicio, "Heuristica");
     
     return solucaoSudokus;
 

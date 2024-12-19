@@ -65,7 +65,6 @@ Fila *leitura(char *path) {
     }
 
     
-    double aux = finalizaCronometro(inicio, "Leitura", tempoDecorrido);
-    tempoDecorrido = aux;
+    finalizaCronometro(inicio, "Leitura");
     return sudokus;
 }

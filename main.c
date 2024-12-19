@@ -5,10 +5,11 @@
 #include "./heuristica.h"
 #include "./leitura.h"
 #include "./saida.h"
-#include "./cronometro.h"  //no linux é show
+#include "./cronometro.h"  
 #include "./estrutura-de-dados/fila.h"
 
-double tempoDecorrido = 0.0;
+double tempoDecorridoCPU = 0.0;
+
 int DimensaoSudoku = 9;
 int DimensaoGrid = 3;
 
@@ -18,9 +19,7 @@ int main(int arg, char *argv[]){
     Fila* sudokus = leitura(argv[1]);
     //imprimirFilaSu(sudokus);
     
-    //cria ou zera o arquivo;
-
-    
+    //cria ou zera o arquivo;    
     initArquivo(argv[2]);
 
     printf("-------------------------------------------------------------------------------\n");

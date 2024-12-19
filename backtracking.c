@@ -49,8 +49,7 @@ Fila* resolveSudokuForcaBruta(Fila *sudokus){
         susu = susu->prox;
     }
 
-    double aux = finalizaCronometro(inicio, "Forca Bruta", tempoDecorrido);
-    tempoDecorrido = aux;
+    finalizaCronometro(inicio, "Forca Bruta");
     
     return sudokusResolvidos;
     

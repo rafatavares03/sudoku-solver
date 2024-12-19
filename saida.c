@@ -66,7 +66,6 @@ void escreveArquivo(Fila *sudoku, char *path, char *operacion){
     char concatenado[51] = "escrita da ";
     strcat(concatenado, operacion);
 
-    double aux = finalizaCronometro(inicio, concatenado, tempoDecorrido);
-    tempoDecorrido = aux;
+    finalizaCronometro(inicio, concatenado);
 
 }
