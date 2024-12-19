@@ -1,7 +1,6 @@
 #ifndef HEURISTICA_H
 #define HEURISTICA_H
 
-#include "./estrutura-de-dados/lista.h"
 #include "./estrutura-de-dados/fila.h"
 
 

@@ -3,7 +3,6 @@
 #include "./heuristica.h"
 #include "./cronometro.h"
 #include "./sudoku.h"
-#include "./estrutura-de-dados/lista.h"
 #include "./estrutura-de-dados/fila.h"
 #include "saida.h"
 
