@@ -26,25 +26,21 @@ void escreveSudoku(int **sudoku, char *path, char *operacion, int i){
     }
 
     fprintf(arquivo, "%s: %d\n", operacion, i);
-    fprintf(arquivo, "+---------------------+\n");
     for (int i = 0; i < DimensaoSudoku; i++) {
         for (int j = 0; j < DimensaoSudoku; j++) {
-            if(j == 0) fprintf(arquivo, "|");
-            
-            if(j == 8){
-                fprintf(arquivo, "%d", sudoku[i][j]); // Escreve cada número
-                fprintf(arquivo, "|");
+            if(j == DimensaoSudoku-1){
+                fprintf(arquivo, "%2d", sudoku[i][j]); // Escreve cada número
+                fprintf(arquivo, " ");
                 
             } else {
-                fprintf(arquivo, "%d ", sudoku[i][j]); // Escreve cada número
+                fprintf(arquivo, "%2d ", sudoku[i][j]); // Escreve cada número
 
             }
-            if ((j + 1) % 3 == 0 && j != 8) fprintf(arquivo, "| "); // Adiciona divisores
+            if ((j + 1) % DimensaoGrid == 0 && j != DimensaoSudoku-1) fprintf(arquivo, "  "); // Adiciona divisores
         }
         fprintf(arquivo, "\n");
-        if ((i + 1) % 3 == 0 && i != 8) fprintf(arquivo, "|---------------------|\n");
+        if ((i + 1) % DimensaoGrid == 0 && i != DimensaoSudoku-1) fprintf(arquivo, "\n");
     }
-    fprintf(arquivo, "+---------------------+\n");
     fprintf(arquivo, "\n");
 
     fclose(arquivo);
