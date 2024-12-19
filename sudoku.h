@@ -2,6 +2,7 @@
 #define SUDOKU_H
 
 extern int DimensaoSudoku;
+extern int DimensaoGrid;
 
 char **alocaSudoku();
 int** alocaSudokuInt();

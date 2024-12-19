@@ -29,15 +29,14 @@ Fila *leitura(char *path) {
     FILE *arquivo = fopen(path, "r");
 
     if (arquivo != NULL) {
-        int tama = (DimensaoSudoku * 3); 
+        int tama = (DimensaoSudoku * DimensaoSudoku); 
         // calculo exato :( dimensao * 2) + sqrt(dimensao)
         //gasto mais memoria pra evitar calculo de raiz
 
         char *linha = (char*) malloc(tama * sizeof(char));
         
         while( ! feof(arquivo) ){
-            char **sudoku = alocaSudoku();
-
+            int **sudoku = alocaSudokuInt();
 
             for (int i = 0; i < DimensaoSudoku; i++) {
                 if (fgets(linha, tama, arquivo)) {
@@ -47,20 +46,15 @@ Fila *leitura(char *path) {
                     
                 }
 
-                for(int j = 0, k = 0; linha[k] != '\0' && linha[k] != '\n'; k++){
-                    if(linha[k] != ' '){  // Ignora espaços em branco
-                        sudoku[i][j] = linha[k];
-                        j++;
-                    }
+                char *token = strtok(linha, " ");
+                for (int j = 0; token != NULL; j++) {
+                    sudoku[i][j] = atoi(token);
+                    token = strtok(NULL, " ");
                 }
-
 
             }
             fgets(linha, tama, arquivo); // comer a segunda linha na troca de sudoku
-
-            enfileirarSu(sudokus, converteSudoku(sudoku)); 
-            destroiSudoku(sudoku);
-
+            enfileirarSu(sudokus, sudoku); 
         }
 
         fclose(arquivo);

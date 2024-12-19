@@ -5,7 +5,7 @@ run:
 	./sudoku.exe su-do-ku.txt ku-do-su.txt
 
 leak:
-	valgrind --leak-check=full --show-leak-kinds=all ./sudoku su-do-ku.txt ku-do-su.txt
+	valgrind --leak-check=full --show-leak-kinds=all ./sudoku.exe su-do-ku.txt ku-do-su.txt
 
 build: ./main.o leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados)
 	gcc main.c leitura.o saida.o sudoku.o heuristica.o cronometro.o backtracking.o $(estrutura-de-dados) -o ./sudoku.exe

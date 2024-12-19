@@ -10,6 +10,7 @@
 
 double tempoDecorrido = 0.0;
 int DimensaoSudoku = 9;
+int DimensaoGrid = 3;
 
 int main(int arg, char *argv[]){
     printf("-------------------------------------------------------------------------------\n");
