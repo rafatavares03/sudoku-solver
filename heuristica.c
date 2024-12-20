@@ -58,10 +58,10 @@ int seguro(Posicao **matriz, int linha, int coluna, int numero) {
         if(matriz[linha][i].valor == numero || matriz[i][coluna].valor == numero) return 0;
     }
 
-    int quadranteLinha = 3 * (linha / 3);
-    int quadranteColuna =  3 * (coluna / 3);
-    for(int i = quadranteLinha; i < (quadranteLinha+3); i++) {
-        for(int j = quadranteColuna; j < (quadranteColuna+3); j++) {
+    int quadranteLinha = DimensaoGrid * (linha / DimensaoGrid);
+    int quadranteColuna =  DimensaoGrid * (coluna / DimensaoGrid);
+    for(int i = quadranteLinha; i < (quadranteLinha+DimensaoGrid); i++) {
+        for(int j = quadranteColuna; j < (quadranteColuna+DimensaoGrid); j++) {
 
             if(matriz[i][j].valor == numero) return 0;
         }
@@ -81,10 +81,10 @@ void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
         }
     }
 
-    int quadranteLinha = 3 * (linha / 3);
-    int quadranteColuna =  3 * (coluna / 3);
-    for(int i = quadranteLinha; i < (quadranteLinha + 3); i++) {
-        for(int j = quadranteColuna; j < (quadranteColuna + 3); j++) {
+    int quadranteLinha = DimensaoGrid * (linha / DimensaoGrid);
+    int quadranteColuna =  DimensaoGrid * (coluna / DimensaoGrid);
+    for(int i = quadranteLinha; i < (quadranteLinha + DimensaoGrid); i++) {
+        for(int j = quadranteColuna; j < (quadranteColuna + DimensaoGrid); j++) {
 
             if (matriz[i][j].possibilidade[valor-1] == 1)
                 matriz[i][j].possibilidade[valor-1] = 0;
@@ -105,10 +105,10 @@ void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
         }
     }
 
-    int quadranteLinha = 3 * (linha / 3);
-    int quadranteColuna =  3 * (coluna / 3);
-    for(int i = quadranteLinha; i < (quadranteLinha + 3); i++) {
-        for(int j = quadranteColuna; j < (quadranteColuna + 3); j++) {
+    int quadranteLinha = DimensaoGrid * (linha / DimensaoGrid);
+    int quadranteColuna =  DimensaoGrid * (coluna / DimensaoGrid);
+    for(int i = quadranteLinha; i < (quadranteLinha + DimensaoGrid); i++) {
+        for(int j = quadranteColuna; j < (quadranteColuna + DimensaoGrid); j++) {
             if(matriz[i][j].ehFixo != 1) {
                 if(seguro(matriz, i, j, valor)) 
                     matriz[i][j].possibilidade[valor-1] = 1;
@@ -207,7 +207,7 @@ int** intermediarioBack(int **sudokuInicial){
 
     int tentativas = 0;
     backtrackingHeuristica(sudoku->matriz, &tentativas);
-    printf("tentativasn heuristica: %d\n", tentativas);
+    printf("tentativas heuristica: %d\n", tentativas);
     sudokuDefinitivo = structPraMatriz(sudoku);
 
     //imprimeSudoku(sudokuDefinitivo);

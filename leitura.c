@@ -38,7 +38,7 @@ void fogoNoRabo(char *path){
     for(int i = 0; i < x; i++){
         for(int j = 0; j < x; j++){
             int y = rand() % 100; // Gera um número aleatório entre 0 e 99
-            if(y < 2 && cont <= x){
+            if(y < 10 && cont <= x && i > DimensaoSudoku/2 ){
                 fprintf(arquivo, "%d ", cont);  // Imprime o número cont
                 cont++;
             } else {
