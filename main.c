@@ -19,7 +19,6 @@ int main(int arg, char *argv[]){
     printf("-------------------------------------------------------------------------------\n");
 
     Fila* sudokus = leitura(argv[1]);
-    //imprimirFilaSu(sudokus);
     
     //cria ou zera o arquivo;    
     initArquivo(argv[2]);
@@ -28,20 +27,17 @@ int main(int arg, char *argv[]){
     
     Fila *resolucoesDaHeuristica = resolveSudokuHeuristica(sudokus);
     escreveArquivo(resolucoesDaHeuristica, argv[2], "heuristica"); 
-
-
-    //imprimirFilaSu(sudokus);
+    destroiFila(resolucoesDaHeuristica);
 
     printf("-------------------------------------------------------------------------------\n");
     
     Fila *ResolucoesDaForcaBruta = resolveSudokuForcaBruta(sudokus);
     escreveArquivo(ResolucoesDaForcaBruta, argv[2], "forca bruta");
+    destroiFila(ResolucoesDaForcaBruta);
 
     printf("-------------------------------------------------------------------------------\n");
 
     destroiFila(sudokus);
-    destroiFila(resolucoesDaHeuristica);
-    destroiFila(ResolucoesDaForcaBruta);
 
     return 0;
 }

@@ -17,6 +17,16 @@ void imprimeSudoku(int** sudoku){
     printf("\n");
 }
 
+void imprimeSudokuStruct(Sudoku *sudoku) {
+    if(sudoku == NULL) return;
+    for(int i = 0; i < DimensaoSudoku; i++) {
+        for(int j = 0; j < DimensaoSudoku; j++) {
+            printf("%d ", sudoku->matriz[i][j].valor);
+        }
+        printf("\n");
+    }
+}
+
 void escreveSudoku(int **sudoku, char *path, char *operacion, int i){
     FILE *arquivo = fopen(path, "a");
 

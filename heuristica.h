@@ -2,17 +2,7 @@
 #define HEURISTICA_H
 
 #include "./estrutura-de-dados/fila.h"
-
-
-typedef struct Posicao{
-    int *possibilidade;
-    int valor;
-    int ehFixo;
-} Posicao;
-
-typedef struct Sudoku {
-    Posicao **matriz;
-} Sudoku;
+#include "sudoku.h"
 
 Sudoku *criaSudoku();
 void destroiSudokuStruct(Sudoku *sudoku);

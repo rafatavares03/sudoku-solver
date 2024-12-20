@@ -6,70 +6,7 @@
 #include "./estrutura-de-dados/fila.h"
 #include "saida.h"
 
-
-void InicializaPosicao(Posicao *posicao){
-    if(posicao != NULL) {
-        posicao->possibilidade = (int*) malloc(sizeof(int) * DimensaoSudoku);
-        for(int i = 0; i < DimensaoSudoku; i++) posicao->possibilidade[i] = 0;
-        posicao->valor = 0;
-        posicao->ehFixo = 0;
-    }
-}
-
-Sudoku *criaSudoku() {
-    Sudoku *sudoku = (Sudoku*)malloc(sizeof(Sudoku));
-
-    if(sudoku != NULL) {
-        sudoku->matriz = (Posicao**)malloc(DimensaoSudoku * sizeof(Posicao*));
-        for(int i = 0; i < DimensaoSudoku; i++) {
-            sudoku->matriz[i] = (Posicao*)malloc(DimensaoSudoku * sizeof(Posicao));
-            for(int j = 0; j < DimensaoSudoku; j++) {
-                InicializaPosicao(&sudoku->matriz[i][j]); 
-            }
-        }
-    }
-    return sudoku;
-}
-
-void destroiSudokuStruct(Sudoku *sudoku) {
-    if(sudoku == NULL) return;
-    for(int i = 0; i < DimensaoSudoku; i++) {
-        for(int j = 0; j < DimensaoSudoku; j++) {
-            free(sudoku->matriz[i][j].possibilidade);
-        }
-        free(sudoku->matriz[i]);
-    }
-    free(sudoku->matriz);
-    free(sudoku);
-}
-
-void imprimeSudokuStruct(Sudoku *sudoku) {
-    if(sudoku == NULL) return;
-    for(int i = 0; i < DimensaoSudoku; i++) {
-        for(int j = 0; j < DimensaoSudoku; j++) {
-            printf("%d ", sudoku->matriz[i][j].valor);
-        }
-        printf("\n");
-    }
-}
-
-int seguro(Posicao **matriz, int linha, int coluna, int numero) {
-    for(int i = 0; i < DimensaoSudoku; i++) {
-        if(matriz[linha][i].valor == numero || matriz[i][coluna].valor == numero) return 0;
-    }
-
-    int quadranteLinha = DimensaoGrid * (linha / DimensaoGrid);
-    int quadranteColuna =  DimensaoGrid * (coluna / DimensaoGrid);
-    for(int i = quadranteLinha; i < (quadranteLinha+DimensaoGrid); i++) {
-        for(int j = quadranteColuna; j < (quadranteColuna+DimensaoGrid); j++) {
-
-            if(matriz[i][j].valor == numero) return 0;
-        }
-    }
-    return 1;
-}
-
-
+// remove uma possibilidade na linha, coluna e subgrid referente a uma posição do sudoku
 void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
     if(matriz == NULL) return;
     for(int i = 0; i < DimensaoSudoku; i++) {
@@ -94,6 +31,7 @@ void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
     }
 }
 
+// adiciona uma possibilidade na linha, coluna e subgrid referente a uma posição do sudoku
 void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
     if(matriz == NULL) return;
     for(int i = 0; i < DimensaoSudoku; i++) {
@@ -135,13 +73,14 @@ void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
             }
         }
     }
-    //printf("%d=%d=%d     ", menor, (*linha), (*coluna));
 }
 
 int backtrackingHeuristica(Posicao **sudoku, int *tentativasContador) {
     (*tentativasContador)++;
     int linha = -1, coluna = -1;
-    encontraMenorPossibilidade(sudoku, &linha, &coluna);
+    //procura a posição com a menor fila de possibilidades
+    encontraMenorPossibilidade(sudoku, &linha, &coluna); 
+
     // Não há mais posições vazias, ou seja, o sudoku foi resolvido
     if (linha == -1 && coluna == -1) return 1;
 
@@ -161,61 +100,25 @@ int backtrackingHeuristica(Posicao **sudoku, int *tentativasContador) {
     return 0; //todos os valores foram testados para uma posição e nenhum conseguiu resolver o sudoku
 }
 
-
-int **structPraMatriz(Sudoku *sudoku){
-    int **sudokuDefinitivo = alocaSudokuInt(); //aloca aqui e depos passa pro no
-    
-    if(sudoku == NULL) return NULL;
-
-    for(int i = 0; i < DimensaoSudoku; i++) {
-        for(int j = 0; j < DimensaoSudoku; j++) {
-            sudokuDefinitivo[i][j] = sudoku->matriz[i][j].valor;
-        }
-    }
-    return sudokuDefinitivo;
-}
-
-void preencheSudoku(Sudoku *sudoku, int **sudokuInicial){
-    for(int i = 0; i < DimensaoSudoku; i++) {
-        for(int j = 0; j < DimensaoSudoku; j++) {
-            if(sudokuInicial[i][j] != 0) {
-                sudoku->matriz[i][j].ehFixo = 1;
-                sudoku->matriz[i][j].valor = sudokuInicial[i][j];
-            }
-        }
-    }
-    
-    for(int i = 0; i < DimensaoSudoku; i++){       
-        for(int j = 0; j < DimensaoSudoku; j++) {
-            if(sudokuInicial[i][j] == 0) {
-                for(int k = 1; k <= DimensaoSudoku; k++){
-                   if(seguro(sudoku->matriz,i,j,k)){
-                       sudoku->matriz[i][j].possibilidade[k-1] = 1;
-                   }
-                }
-            }
-        }
-    }
-}
-
 Fila* resolveSudokuHeuristica(Fila *sudokus) {
     struct timeval inicio = iniciaCronometro();
-    Fila *solucaoSudokus = criaFila();
+    Fila *solucaoSudokus = criaFila(); //fila de soluções a ser retornada
 
-    NO *resolvendo = sudokus->inicio;
-    while(resolvendo != NULL){
+    NO *sudokuOriginal = sudokus->inicio;
+    while(sudokuOriginal != NULL){
         Sudoku *sudoku = criaSudoku();
-        preencheSudoku(sudoku, resolvendo->sudoku);
+        preencheSudoku(sudoku, sudokuOriginal->sudoku); // faz uma copia do sudoku original para o sudoku de struct
 
-        int tentativas = 0;
+        int tentativas = 0; // quantidade de tentativas em preencher posições
         backtrackingHeuristica(sudoku->matriz, &tentativas);
         printf("Tentativas heuristica: %d\n", tentativas);
 
-        int **solucaoSudokuAtual = structPraMatriz(sudoku);
-        enfileirar(solucaoSudokus, solucaoSudokuAtual);
+        enfileirar(solucaoSudokus, structPraMatriz(sudoku));
+        // a converão de struct pra int retorna um sudoku alocado
+        // que é passado por parametro pra enfileirar 
 
         destroiSudokuStruct(sudoku);
-        resolvendo = resolvendo->prox;
+        sudokuOriginal = sudokuOriginal->prox;
     }
 
     finalizaCronometro(inicio, "Heuristica");
