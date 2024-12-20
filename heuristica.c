@@ -35,7 +35,7 @@ void removePossibilidade(Posicao **matriz, int linha, int coluna, int valor) {
 void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
     if(matriz == NULL) return;
     for(int i = 0; i < DimensaoSudoku; i++) {
-        if(matriz[linha][i].ehFixo != 1){
+        if(matriz[linha][i].ehFixo != 1){ // verifica se é seguro inserir esse valor nessa posição
             if(seguro(matriz, linha, i, valor)) matriz[linha][i].possibilidade[valor-1] = 1;
         }
         if(matriz[i][coluna].ehFixo != 1) {
@@ -55,6 +55,7 @@ void adicionaPossibilidade(Posicao **matriz, int linha, int coluna,int valor) {
     }
 }
 
+// percorre o sudoku procurando a posição com a menor quantidade de elementos possíveis para inserir
 void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
     int menor = 1000;
     for(int i = 0; i < DimensaoSudoku; i++) {
@@ -65,7 +66,7 @@ void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
                 for(int k = 0; k < DimensaoSudoku; k++)
                     quantidade += matriz[i][j].possibilidade[k];
                 
-                if(menor > quantidade) {
+                if(menor > quantidade) { // se encontrar a posição com menor possibilidade, atualiza a linha e a coluna
                     menor = quantidade;
                     *(linha) = i;
                     *(coluna) = j;
@@ -82,7 +83,7 @@ int backtrackingHeuristica(Posicao **sudoku, int *tentativasContador) {
     //procura a posição com a menor fila de possibilidades
     encontraMenorPossibilidade(sudoku, &linha, &coluna); 
 
-    // Não há mais posições vazias, ou seja, o sudoku foi resolvido
+    // não há mais posições vazias, ou seja, o sudoku foi resolvido
     if (linha == -1 && coluna == -1) return 1;
 
     for (int valor = 1; valor <= DimensaoSudoku; valor++) {
@@ -94,8 +95,8 @@ int backtrackingHeuristica(Posicao **sudoku, int *tentativasContador) {
             } else { // o número inserido não trouxe solução para o sudoku
                 sudoku[linha][coluna].valor = 0; // reseta essa posição
                 adicionaPossibilidade(sudoku,linha,coluna, valor); // repôe o valor que havia sido inserido como possibilidade para as posições de mesma linha, coluna e quadrante que puderem ser preenchidas com esse valor
-                //tenta outro valor
             }
+            //tenta outro valor
         }
     }
     return 0; //todos os valores foram testados para uma posição e nenhum conseguiu resolver o sudoku

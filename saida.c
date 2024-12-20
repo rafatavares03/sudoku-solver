@@ -4,8 +4,6 @@
 #include "./cronometro.h"
 #include "./sudoku.h"
 
-
-
 void imprimeSudoku(int** sudoku){
         for(int i = 0; i < DimensaoSudoku; i++){
             printf("|");
@@ -27,7 +25,13 @@ void imprimeSudokuStruct(Sudoku *sudoku) {
     }
 }
 
-void escreveSudoku(int **sudoku, char *path, char *operacion, int i){
+void initArquivo(char *path){
+    FILE *arquivo = fopen(path, "w");
+    fprintf(arquivo, "%s" ,"");
+    fclose(arquivo);
+}
+
+void escreveSudoku(int **sudoku, char *path, char *operacao, int i){
     FILE *arquivo = fopen(path, "a");
 
     if (arquivo == NULL) {
@@ -35,18 +39,18 @@ void escreveSudoku(int **sudoku, char *path, char *operacion, int i){
         return;
     }
 
-    fprintf(arquivo, "%s: %d\n", operacion, i);
+    fprintf(arquivo, "%s: %d\n", operacao, i);
     for (int i = 0; i < DimensaoSudoku; i++) {
         for (int j = 0; j < DimensaoSudoku; j++) {
             if(j == DimensaoSudoku-1){
                 fprintf(arquivo, "%2d", sudoku[i][j]); // Escreve cada número
-                fprintf(arquivo, " ");
+                //fprintf(arquivo, " ");
                 
             } else {
-                fprintf(arquivo, "%2d ", sudoku[i][j]); // Escreve cada número
+                fprintf(arquivo, "%2d", sudoku[i][j]); // Escreve cada número
 
             }
-            if ((j + 1) % DimensaoGrid == 0 && j != DimensaoSudoku-1) fprintf(arquivo, "  "); // Adiciona divisores
+            if ((j + 1) % DimensaoGrid == 0 && j != DimensaoSudoku-1) fprintf(arquivo, " "); // Adiciona divisores
         }
         fprintf(arquivo, "\n");
         if ((i + 1) % DimensaoGrid == 0 && i != DimensaoSudoku-1) fprintf(arquivo, "\n");
@@ -56,25 +60,20 @@ void escreveSudoku(int **sudoku, char *path, char *operacion, int i){
     fclose(arquivo);
 }
 
-void initArquivo(char *path){
-    FILE *arquivo = fopen(path, "w");
-    fprintf(arquivo, "%s" ,"");
-    fclose(arquivo);
- }
 
-void escreveArquivo(Fila *sudoku, char *path, char *operacion){
+void escreveArquivo(Fila *sudoku, char *path, char *operacao){
     struct timeval inicio = iniciaCronometro();
 
-    NO *susu = sudoku->inicio;
+    NO *solucao = sudoku->inicio;
     int i = 1; //contagem
-    while(susu != NULL){
-        escreveSudoku(susu->sudoku, path, operacion, i);
-        susu = susu->prox; i++;
+    while(solucao != NULL){
+        escreveSudoku(solucao->sudoku, path, operacao, i);
+        solucao = solucao->prox; i++;
     }
     
-    //tem que ter tamanho fixp pra n dar falha de segmentação
+    //tem que ter tamanho fixo pra n dar falha de segmentação
     char concatenado[51] = "escrita da ";
-    strcat(concatenado, operacion);
+    strcat(concatenado, operacao);
 
     finalizaCronometro(inicio, concatenado);
 
