@@ -22,40 +22,72 @@ int **converteSudoku(char **original){
     return copia;
 }
 
-void fogoNoRabo(char *path){
+void gerarSudokuParcial(char *path) {
     FILE *arquivo = fopen(path, "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
 
-    int x = DimensaoSudoku;
-    int cont = 1;
-    
+    int **sudoku = alocaSudokuInt(); // Inicializa o grid com zeros
+    int numPreenchido = DimensaoSudoku * DimensaoSudoku / 4; // Define a quantidade de células preenchidas
+
     // Inicializa o gerador de números aleatórios com a hora atual
     srand(time(NULL));
-    
-    for(int i = 0; i < x; i++){
-        for(int j = 0; j < x; j++){
-            int y = rand() % 100; // Gera um número aleatório entre 0 e 99
-            if(y < 10 && cont <= x && i > DimensaoSudoku/2 ){
-                fprintf(arquivo, "%d ", cont);  // Imprime o número cont
-                cont++;
-            } else {
-                fprintf(arquivo, "0 ");  // Imprime 0
-            }
+
+    // Preenche o tabuleiro com alguns números aleatórios seguindo as regras do Sudoku
+    while (numPreenchido > 0) {
+        int linha = rand() % DimensaoSudoku;
+        int coluna = rand() % DimensaoSudoku;
+        int num = (rand() % DimensaoSudoku) + 1;
+
+        if (sudoku[linha][coluna] == 0 && posicaoSegura(sudoku, linha, coluna, num)) {
+            sudoku[linha][coluna] = num;
+            numPreenchido--;
         }
-        if(i!=x-1)
-        fprintf(arquivo, "\n");  // Quebra de linha após cada linha do grid
     }
-    
-    fclose(arquivo);  // Não se esqueça de fechar o arquivo
+
+    // Grava o Sudoku gerado no arquivo
+    for (int i = 0; i < DimensaoSudoku; i++) {
+        for (int j = 0; j < DimensaoSudoku; j++) {
+            fprintf(arquivo, "%d ", sudoku[i][j]);
+        }
+        if(i!=DimensaoSudoku-1)
+        fprintf(arquivo, "\n");
+    }
+    destroiSudokuInt(sudoku);
+
+    fclose(arquivo); // Fecha o arquivo
 }
+
+void gerarSudokuVazio(char *path) {
+    FILE *arquivo = fopen(path, "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    for (int i = 0; i < DimensaoSudoku; i++) {
+        for (int j = 0; j < DimensaoSudoku; j++) {
+            if(i==j)
+            fprintf(arquivo, "%d ", i+1);
+            else  // Escreve "0" seguido de um espaço
+            fprintf(arquivo, "0 "); // Escreve "0" seguido de um espaço
+        }
+        if(i!=DimensaoSudoku-1)
+        fprintf(arquivo, "\n"); // Quebra de linha ao final de cada linha
+    }
+
+    fclose(arquivo); // Fecha o arquivo
+}
+
+
 
 Fila *leitura(char *path) {
     struct timeval inicio = iniciaCronometro();
 
-    fogoNoRabo(path);
+    //gerarSudokuParcial(path);
+    gerarSudokuVazio(path);
 
     
     Fila *sudokus = criaFila();

@@ -16,7 +16,6 @@ int DimensaoGrid = 5;
 
 int main(int arg, char *argv[]){
 
-    printf("%d -- ", (pow(9,9*9) > pow((9*8*7*6*5*4*3*2*1), 9)));
     printf("-------------------------------------------------------------------------------\n");
 
     Fila* sudokus = leitura(argv[1]);
