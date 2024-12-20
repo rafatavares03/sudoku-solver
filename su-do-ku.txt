@@ -1,54 +1,9 @@
-4 v v  v 8 v  v v 3
-v v v  v 3 v  v v v
-2 1 v  v v 4  v 5 7
-
-v v 2  4 v 7  v v v
-5 8 v  v v v  v 7 9
-v v v  8 v 9  1 v v
-
-8 7 v  3 v v  v 1 2
-v v v  v 2 v  v v v
-1 v v  v 7 v  v v 5
-
-
-4 v v v 8 v v v 3
-v v v v 3 v v v v
-2 1 v v v 4 v 5 7
-v v 2 4 v 7 v v v
-5 8 v v v v v 7 4
-v v v 8 v 9 1 v v
-8 7 v 3 v v v 1 2
-v v v v 2 v v v v
-1 v v v 7 v v v 5
-
-
-6 v v 9 4 v v 8 v
-v v v 8 1 v v v v
-v 8 v v v v 6 9 v
-v v v 5 v v v 4 7
-9 5 v 7 v 4 v 3 6
-7 4 v v v 2 v v v
-v v 7 v v v v v v
-4 v 5 v 3 9 8 v v
-v v v v 7 8 v v 4
-
-v v v 2 v 5 v v v 
-2 v v 9 v 3 6 7 v 
-v 6 v v 8 v 2 v v 
-v v v 8 v 6 v v v 
-v 2 6 v v v 1 8 v 
-v 1 v 3 v 2 v 5 v 
-v 9 4 v 3 v v v v 
-v 3 v 7 v 4 5 v v 
-v v v 5 v 8 v 4 v 
-
-
-v 4 v v 8 v v v v
-v v 8 9 v 5 v v v
-9 v v 2 4 1 v v v
-v 2 6 v v v 9 5 v
-7 v 1 v 3 v 4 v 2
-v 8 9 v v v 3 6 v
-v v v 8 6 4 v 2 v
-v v v 5 v 3 v v 8
-v v v v 9 v 5 v v
+0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 
+0 0 0 1 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 
+0 0 2 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 

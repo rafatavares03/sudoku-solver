@@ -203,7 +203,7 @@ int** intermediarioBack(int **sudokuInicial){
     Sudoku *sudoku = criaSudoku();
     preencheSudoku(sudoku, sudokuInicial);
 
-    int **sudokuDefinitivo; //aloca na conversao
+    int **sudokuDefinitivo; //aloca na conversao struct pra matriz
 
     int tentativas = 0;
     backtrackingHeuristica(sudoku->matriz, &tentativas);

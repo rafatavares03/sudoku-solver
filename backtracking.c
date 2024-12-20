@@ -13,9 +13,6 @@ int backtracking(int **sudoku, int *tentativasContador) {
     for(int linha = 0; linha < DimensaoSudoku; linha++) {
         for(int coluna = 0; coluna < DimensaoSudoku; coluna++) {
             if(sudoku[linha][coluna] == 0) {
-                int *list = (int*) malloc(sizeof(int) * DimensaoSudoku); if(list == NULL) return 0; 
-
-
 
                 for(int k = 1; k <= DimensaoSudoku; k++) {
                     if(posicaoSegura(sudoku, k, linha, coluna)) {
@@ -26,11 +23,11 @@ int backtracking(int **sudoku, int *tentativasContador) {
                         sudoku[linha][coluna] = 0; 
                     }
                 }
-                
                 return 0; 
             }
         }
     }
+    
     return 1;
 }
 

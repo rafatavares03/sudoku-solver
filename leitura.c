@@ -22,11 +22,46 @@ int **converteSudoku(char **original){
     return copia;
 }
 
+void fogoNoRabo(char *path){
+    FILE *arquivo = fopen(path, "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    int x = DimensaoSudoku;
+    int cont = 1;
+    
+    // Inicializa o gerador de números aleatórios com a hora atual
+    srand(time(NULL));
+    
+    for(int i = 0; i < x; i++){
+        for(int j = 0; j < x; j++){
+            int y = rand() % 100; // Gera um número aleatório entre 0 e 99
+            if(y < 2 && cont <= x){
+                fprintf(arquivo, "%d ", cont);  // Imprime o número cont
+                cont++;
+            } else {
+                fprintf(arquivo, "0 ");  // Imprime 0
+            }
+        }
+        if(i!=x-1)
+        fprintf(arquivo, "\n");  // Quebra de linha após cada linha do grid
+    }
+    
+    fclose(arquivo);  // Não se esqueça de fechar o arquivo
+}
+
 Fila *leitura(char *path) {
     struct timeval inicio = iniciaCronometro();
+
+    fogoNoRabo(path);
+
     
     Fila *sudokus = criaFila();
     FILE *arquivo = fopen(path, "r");
+
+
 
     if (arquivo != NULL) {
         int tama = (DimensaoSudoku * DimensaoSudoku); 
@@ -48,7 +83,8 @@ Fila *leitura(char *path) {
 
                 char *token = strtok(linha, " ");
                 for (int j = 0; token != NULL; j++) {
-                    sudoku[i][j] = atoi(token);
+                    if(i < DimensaoSudoku && j < DimensaoSudoku)
+                        sudoku[i][j] = atoi(token);
                     token = strtok(NULL, " ");
                 }
 
