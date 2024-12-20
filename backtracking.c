@@ -9,7 +9,7 @@
 
 
 int backtracking(int **sudoku, int *tentativasContador) {
-    (*tentativasContador)++; printf("%d ", (*tentativasContador));
+    (*tentativasContador)++;
     for(int linha = 0; linha < DimensaoSudoku; linha++) {
         for(int coluna = 0; coluna < DimensaoSudoku; coluna++) {
             if(sudoku[linha][coluna] == 0) {

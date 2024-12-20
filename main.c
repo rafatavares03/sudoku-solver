@@ -11,8 +11,8 @@
 
 double tempoDecorridoCPU = 0.0;
 
-int DimensaoSudoku = 25;
-int DimensaoGrid = 5;
+int DimensaoSudoku = 9;
+int DimensaoGrid = 3;
 
 int main(int arg, char *argv[]){
 
