@@ -198,33 +198,23 @@ void preencheSudoku(Sudoku *sudoku, int **sudokuInicial){
     }
 }
 
-
-int** intermediarioBack(int **sudokuInicial){
-    Sudoku *sudoku = criaSudoku();
-    preencheSudoku(sudoku, sudokuInicial);
-
-    int **sudokuDefinitivo; //aloca na conversao struct pra matriz
-
-    int tentativas = 0;
-    backtrackingHeuristica(sudoku->matriz, &tentativas);
-    printf("tentativas heuristica: %d\n", tentativas);
-    sudokuDefinitivo = structPraMatriz(sudoku);
-
-    //imprimeSudoku(sudokuDefinitivo);
-   
-    destroiSudokuStruct(sudoku);
-
-    return sudokuDefinitivo;
-}
-
 Fila* resolveSudokuHeuristica(Fila *sudokus) {
     struct timeval inicio = iniciaCronometro();
     Fila *solucaoSudokus = criaFila();
 
     NO *resolvendo = sudokus->inicio;
     while(resolvendo != NULL){
-        int **solucaoSudokuAtual = intermediarioBack(resolvendo->sudoku);
+        Sudoku *sudoku = criaSudoku();
+        preencheSudoku(sudoku, resolvendo->sudoku);
+
+        int tentativas = 0;
+        backtrackingHeuristica(sudoku->matriz, &tentativas);
+        printf("Tentativas heuristica: %d\n", tentativas);
+
+        int **solucaoSudokuAtual = structPraMatriz(sudoku);
         enfileirar(solucaoSudokus, solucaoSudokuAtual);
+
+        destroiSudokuStruct(sudoku);
         resolvendo = resolvendo->prox;
     }
 
