@@ -11,7 +11,7 @@ leak:
 	valgrind --leak-check=full --show-leak-kinds=all ./sudoku.exe su-do-ku.txt ku-do-su.txt
 
 build: $(OBJ_DIR)/main.o $(OBJ_DIR)/leitura.o $(OBJ_DIR)/saida.o $(OBJ_DIR)/sudoku.o $(OBJ_DIR)/heuristica.o $(OBJ_DIR)/cronometro.o $(OBJ_DIR)/backtracking.o $(estrutura-de-dados)
-	gcc $(OBJ_DIR)/main.o $(OBJ_DIR)/leitura.o $(OBJ_DIR)/saida.o $(OBJ_DIR)/sudoku.o $(OBJ_DIR)/heuristica.o $(OBJ_DIR)/cronometro.o $(OBJ_DIR)/backtracking.o $(estrutura-de-dados) -o ./sudoku.exe -lm
+	gcc $(OBJ_DIR)/main.o $(OBJ_DIR)/leitura.o $(OBJ_DIR)/saida.o $(OBJ_DIR)/sudoku.o $(OBJ_DIR)/heuristica.o $(OBJ_DIR)/cronometro.o $(OBJ_DIR)/backtracking.o $(estrutura-de-dados) -o ./sudoku.exe 
 
 $(OBJ_DIR)/main.o: ./main.c ./leitura.h ./heuristica.h ./sudoku.h ./saida.h | $(OBJ_DIR)
 	gcc -c main.c -o $(OBJ_DIR)/main.o
