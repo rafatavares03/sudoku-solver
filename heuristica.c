@@ -106,13 +106,14 @@ Fila* resolveSudokuHeuristica(Fila *sudokus) {
     Fila *solucaoSudokus = criaFila(); //fila de soluções a ser retornada
 
     NO *sudokuOriginal = sudokus->inicio;
+    printf( "Tentativas Heuristica: "); int caso = 1;
     while(sudokuOriginal != NULL){
         Sudoku *sudoku = criaSudoku();
         preencheSudoku(sudoku, sudokuOriginal->sudoku); // faz uma copia do sudoku original para o sudoku de struct
 
         int tentativas = 0; // quantidade de tentativas em preencher posições
         backtrackingHeuristica(sudoku->matriz, &tentativas);
-        printf("Tentativas heuristica: %d\n", tentativas);
+        printf( "[caso%d: %d] ", caso, tentativas);
 
         enfileirar(solucaoSudokus, structPraMatriz(sudoku));
         // a converão de struct pra int retorna um sudoku alocado
@@ -120,7 +121,9 @@ Fila* resolveSudokuHeuristica(Fila *sudokus) {
 
         destroiSudokuStruct(sudoku);
         sudokuOriginal = sudokuOriginal->prox;
+        caso++;
     }
+    printf( "\n");
 
     finalizaCronometro(inicio, "Heuristica");
     

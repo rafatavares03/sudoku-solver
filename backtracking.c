@@ -37,14 +37,16 @@ Fila* resolveSudokuForcaBruta(Fila *sudokus){
     Fila* sudokusResolvidos = criaFila();
 
     NO *susu = sudokus->inicio;
+    printf( "Tentativas Backtracking: "); int caso = 1;
     while(susu != NULL){
         int **sudokuBack = copiaSudoku(susu->sudoku);// o sudoku é alocado ao fazer a copia  
         int cont = 0;
         backtracking(sudokuBack, &cont);
-        printf( "tentativas backtracking  = %d\n", cont);
+        printf( "[caso%d: %d] ", caso, cont);
         enfileirar(sudokusResolvidos, sudokuBack); 
-        susu = susu->prox;
+        susu = susu->prox; caso++;
     }
+    printf( "\n");
 
     finalizaCronometro(inicio, "Forca Bruta");
     
