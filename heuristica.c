@@ -76,7 +76,8 @@ void encontraMenorPossibilidade(Posicao **matriz, int *linha, int *coluna) {
 }
 
 int backtrackingHeuristica(Posicao **sudoku, int *tentativasContador) {
-    (*tentativasContador)++;
+    (*tentativasContador)++; 
+
     int linha = -1, coluna = -1;
     //procura a posição com a menor fila de possibilidades
     encontraMenorPossibilidade(sudoku, &linha, &coluna); 

@@ -38,11 +38,11 @@ Fila* resolveSudokuForcaBruta(Fila *sudokus){
 
     NO *susu = sudokus->inicio;
     while(susu != NULL){
-        int **sudokuBack = copiaSudoku(susu->sudoku);
-        int aaa = 0;
-        backtracking(sudokuBack, &aaa);
-        printf( "tentativas back  = %d\n", aaa);
-        enfileirar(sudokusResolvidos, sudokuBack); //nao aloca mais no enfileira //tirar comentario depois   
+        int **sudokuBack = copiaSudoku(susu->sudoku);// o sudoku é alocado ao fazer a copia  
+        int cont = 0;
+        backtracking(sudokuBack, &cont);
+        printf( "tentativas backtracking  = %d\n", cont);
+        enfileirar(sudokusResolvidos, sudokuBack); 
         susu = susu->prox;
     }
 

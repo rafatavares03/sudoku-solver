@@ -72,7 +72,7 @@ void escreveArquivo(Fila *sudoku, char *path, char *operacion){
         susu = susu->prox; i++;
     }
     
-    //tem que ter tamanho fixp pra n dar seg falha
+    //tem que ter tamanho fixp pra n dar falha de segmentação
     char concatenado[51] = "escrita da ";
     strcat(concatenado, operacion);
 

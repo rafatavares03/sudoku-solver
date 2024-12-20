@@ -1,3 +1,11 @@
+/* 
+======================================
+    Autores:                      
+    Hugo Alves Azevedo de Souza 
+    Rafael Moisés de Sá Tavares 
+======================================
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "./sudoku.h"

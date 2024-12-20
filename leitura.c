@@ -6,61 +6,9 @@
 #include "saida.h"
 #include "./cronometro.h"
 
-int **converteSudoku(char **original){
-   int **copia = alocaSudokuInt();
-   for(int i = 0; i < DimensaoSudoku; i++){
-        for(int j = 0; j < DimensaoSudoku; j++){
-            if(original[i][j] == 'v'){
-                copia[i][j] = 0;
-            } else {
-                copia[i][j] = (original[i][j] - '0');
-
-            }
-        }
-    }
-
-    return copia;
-}
-
-void gerarSudokuParcial(char *path) {
-    FILE *arquivo = fopen(path, "w");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        return;
-    }
-
-    int **sudoku = alocaSudokuInt(); // Inicializa o grid com zeros
-    int numPreenchido = DimensaoSudoku * DimensaoSudoku / 4; // Define a quantidade de células preenchidas
-
-    // Inicializa o gerador de números aleatórios com a hora atual
-    srand(time(NULL));
-
-    // Preenche o tabuleiro com alguns números aleatórios seguindo as regras do Sudoku
-    while (numPreenchido > 0) {
-        int linha = rand() % DimensaoSudoku;
-        int coluna = rand() % DimensaoSudoku;
-        int num = (rand() % DimensaoSudoku) + 1;
-
-        if (sudoku[linha][coluna] == 0 && posicaoSegura(sudoku, linha, coluna, num)) {
-            sudoku[linha][coluna] = num;
-            numPreenchido--;
-        }
-    }
-
-    // Grava o Sudoku gerado no arquivo
-    for (int i = 0; i < DimensaoSudoku; i++) {
-        for (int j = 0; j < DimensaoSudoku; j++) {
-            fprintf(arquivo, "%d ", sudoku[i][j]);
-        }
-        if(i!=DimensaoSudoku-1)
-        fprintf(arquivo, "\n");
-    }
-    destroiSudokuInt(sudoku);
-
-    fclose(arquivo); // Fecha o arquivo
-}
-
-void gerarSudokuVazio(char *path) {
+// pra teste de complexidade
+//gera um sudoku vazio com a diagila preenchida de 1 a n
+void gerarSudouDiagonal(char *path) {
     FILE *arquivo = fopen(path, "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
@@ -86,8 +34,9 @@ void gerarSudokuVazio(char *path) {
 Fila *leitura(char *path) {
     struct timeval inicio = iniciaCronometro();
 
-    //gerarSudokuParcial(path);
-    gerarSudokuVazio(path);
+    // para fins de teste
+    // cria um sudoku com  a diagonal principal preenchida
+    //gerarSudouDiagonal(path);
 
     
     Fila *sudokus = criaFila();
@@ -98,7 +47,7 @@ Fila *leitura(char *path) {
     if (arquivo != NULL) {
         int tama = (DimensaoSudoku * DimensaoSudoku); 
         // calculo exato :( dimensao * 2) + sqrt(dimensao)
-        //gasto mais memoria pra evitar calculo de raiz
+        //gasto mais memoria pra evitar calculo de raiz e ter mais segurança
 
         char *linha = (char*) malloc(tama * sizeof(char));
         
@@ -107,7 +56,7 @@ Fila *leitura(char *path) {
 
             for (int i = 0; i < DimensaoSudoku; i++) {
                 if (fgets(linha, tama, arquivo)) {
-                    if(strlen(linha) < 5){ //quebra de linha do subgrid
+                    if(strlen(linha) < 5){ //quebra de linha do subgrid //5 pra margem de erro
                         fgets(linha, tama, arquivo);
                     } 
                     

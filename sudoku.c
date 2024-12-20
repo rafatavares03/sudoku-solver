@@ -40,13 +40,11 @@ int posicaoSegura(int **sudoku, int num, int linha, int coluna) {
         }
     }
 
-    int blocoLinha = (linha / DimensaoGrid);
-    blocoLinha *= DimensaoGrid;
-    int blocoColuna = (coluna / DimensaoGrid);
-    blocoColuna *= DimensaoGrid;
-    for (int i = 0; i < DimensaoGrid; i++) {
-        for (int j = 0; j < DimensaoGrid; j++) {
-            if (sudoku[blocoLinha + i][blocoColuna + j] == num) {
+    int blocoLinha = DimensaoGrid * (linha / DimensaoGrid);
+    int blocoColuna = DimensaoGrid * (coluna / DimensaoGrid);
+    for (int i = blocoLinha; i < blocoLinha + DimensaoGrid; i++) {
+        for (int j = blocoColuna; j < blocoColuna + DimensaoGrid; j++) {
+            if (sudoku[i][j] == num) {
                 return 0;
             }
         }
