@@ -1,18 +1,36 @@
-PROJETO E ANÁLISE DE ALGORITMOS - TRABALHO PRÁTICO 2
-Alunos: Hugo Alves Azevedo de Souza e Rafael Moisés de Sá Tavares
+# PROJETO E ANÁLISE DE ALGORITMOS - TRABALHO PRÁTICO 2
+**Alunos:** Hugo Alves Azevedo de Souza e Rafael Moisés de Sá Tavares
 
 Esse arquivo conta com instruções para execução do tp 2 e de informações sobre a entrada e saída do programa.
 
-Execução:
-  Para compilar o programa é necessário usar o comando no terminal "make build", tal comando irá compilar todos os arquivos necessários em arquivo objeto e salvar na pasta "objeto".
-  Para executar o programa é necessário utilizar o comando "./sudoku.exe arquivo1.txt arquivo2.txt", sendo arquivo1 o arquivo que contém as entradas e arquivo2 o arquivo onde será escrito as soluções.
-  Outra forma de executar o programa é com o comando make run, ele irá pegar a entrada que está no arquivo "sudoku.txt" e vai armazenar os resultados no arquivo "solucoes.txt".
-Entrada:
+## Execução:
+  Para compilar o programa é necessário usar o comando no terminal:
+  ```
+  make build
+  ``` 
+  Tal comando irá compilar todos os arquivos necessários em arquivo objeto e salvar na pasta "objeto".
+  É possível executar o programa utilizar o comando:
+  ```
+  ./sudoku.exe arquivo1.txt arquivo2.txt // 
+  ```
+  Sendo arquivo1 o arquivo que contém as entradas e arquivo2 o arquivo onde será escrito as soluções.
+  Outra forma de executar o programa é com o comando:
+  ```
+   make run
+  ```
+  Ele irá pegar a entrada que está no arquivo "sudoku.txt" e vai armazenar os resultados no arquivo "solucoes.txt".
+## Entrada:
   O formato da entrada é o mesmo especificado no pdf do tp com sudokus diferentes sendo separados por duas linhas vazias.
-Saída: 
-  É impresso no terminal o tempo gasto com a leitura, resolução de todos os sudokus com a heurística, resolução de todos os sudokus com backtracking comum e com as escritas no arquivo.
-  Também 
+  A última linha da entrada não deve ser uma linha vazia.
+## Saída: 
+  É impresso no terminal o tempo gasto com:
+  - Leitura
+  - Resolução de todos os sudokus com a heurística
+  - Resolução de todos os sudokus com o backtracking comum
+  - Tentativas de inserção feitas pela heurística e pela força bruta para cada sudoku.
+  Se os algoritmos não encontrarem solução para um sudoku, ele será impresso na saída da mesma forma em que foi recebido na entrada, apenas modificando os 'v's por 0.
   A saída é preenchida primeiramente com todas as soluções feitas com a heurística e depois todas as soluções com o backtracking comum. Um exemplo de saída:
+```
   heuristica: 1
  4 5 6  7 8 1  2 9 3
  7 9 8  5 3 2  6 4 1
@@ -64,3 +82,5 @@ forca bruta: 2
  8 2 7  4 5 1  3 6 9
  4 1 5  6 3 9  8 7 2
  3 9 6  2 7 8  5 1 4
+
+```
