@@ -28,6 +28,7 @@ Esse arquivo conta com instruções para execução do tp 2 e de informações s
   - Resolução de todos os sudokus com a heurística
   - Resolução de todos os sudokus com o backtracking comum
   - Tentativas de inserção feitas pela heurística e pela força bruta para cada sudoku.
+    
   Se os algoritmos não encontrarem solução para um sudoku, ele será impresso na saída da mesma forma em que foi recebido na entrada, apenas modificando os 'v's por 0.
   A saída é preenchida primeiramente com todas as soluções feitas com a heurística e depois todas as soluções com o backtracking comum. Um exemplo de saída:
 ```
