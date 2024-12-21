@@ -11,7 +11,7 @@ Esse arquivo conta com instruções para execução do tp 2 e de informações s
   Tal comando irá compilar todos os arquivos necessários em arquivo objeto e salvar na pasta "objeto".
   É possível executar o programa utilizar o comando:
   ```
-  ./sudoku.exe arquivo1.txt arquivo2.txt // 
+  ./sudoku.exe arquivo1.txt arquivo2.txt
   ```
   Sendo arquivo1 o arquivo que contém as entradas e arquivo2 o arquivo onde será escrito as soluções.
   Outra forma de executar o programa é com o comando:
@@ -82,5 +82,5 @@ forca bruta: 2
  8 2 7  4 5 1  3 6 9
  4 1 5  6 3 9  8 7 2
  3 9 6  2 7 8  5 1 4
-
+ 
 ```
